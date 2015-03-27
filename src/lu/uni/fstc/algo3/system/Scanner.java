@@ -12,6 +12,8 @@ public class Scanner {
     private Collection<ScanEntry> buffer;
     private RoadSection roadSection;
     private Checkpoint checkpoint;
+
+    //TODO: Make constant (LEFT, RIGHT)
     private String direction;
 
     protected Scanner(RoadSection roadSection, Checkpoint checkpoint, String direction) {
@@ -20,6 +22,11 @@ public class Scanner {
         this.direction = direction;
     }
 
+    /**
+     * Scan each cars that the scanner see.
+     * @param plate
+     * @return
+     */
     protected boolean scan(NumberPlate plate) {
         return true;
     }
