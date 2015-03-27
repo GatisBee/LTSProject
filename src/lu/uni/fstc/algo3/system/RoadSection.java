@@ -12,6 +12,11 @@ public class RoadSection {
     private String name;
     private int speedLimit;
     private Collection<Checkpoint> checkpoints;
+    /** 
+    * Number of vehicles currently on the road section. Increased/decreased by scanners through
+    * vehicleEnters() and vehicleLeaves() methods.
+    */
+    private static long vehiclesOnSection;
 
     protected boolean addCheckpoint(Checkpoint checkpoint) {
         return true;
@@ -26,7 +31,7 @@ public class RoadSection {
      * @param vehicle
      * @return
      */
-    public boolean enter(Vehicle vehicle) {
+    public boolean vehicleEnters() {
         return true;
     }
 
@@ -35,7 +40,7 @@ public class RoadSection {
      * @param vehicle
      * @return
      */
-    public boolean leave(Vehicle vehicle) {
+    public boolean vehicleLeaves() {
         return true;
     }
 }
