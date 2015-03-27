@@ -18,6 +18,7 @@ public class Checkpoint {
     private String name;
     /**
      * A unique identifier of the checkpoint
+     * The uniquness of the identifier should be enforced from outside of this class on the scope of whole system.
      */
     private long id;
     /**
@@ -47,7 +48,13 @@ public class Checkpoint {
         scannersOut.add(scanner);
         return true;
     }
-
+    /* 
+    * If you want to remove some scanners you probably have to know what scanners you have on this checkpoint.
+    * There is more than 1 way how to do this, but in this particular case you get a reference to scannersIn/Out arrays
+    * which implies that you can remove scanners by using those references (from outside of this class in uncontrolled manner).
+    * On the other hand, we could provide methods in this class for such removals 
+    * and to NOT give direct references to ArrayLists storing those scanners.
+    */
     public Collection<Scanner> getScannersIn() {
         return scannersIn;
     }
