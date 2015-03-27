@@ -24,6 +24,10 @@ public class Scanner {
         return true;
     }
 
+    /**
+     * Sends all scan entries from the buffer to centralized system registry and resets the buffer.
+     * @return A boolean value indicating operation success or failure.
+     */
     private boolean flushBuffer() {
         return true;
     }
