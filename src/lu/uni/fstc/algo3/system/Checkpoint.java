@@ -17,8 +17,8 @@ public class Checkpoint {
      */
     private String name;
     /**
-     * A unique identifier of the checkpoint
-     * The uniquness of the identifier should be enforced from outside of this class on the scope of whole system.
+     * A unique identifier of a checkpoint
+     * The uniqueness of the identifier should be enforced from outside of this class on the scope of whole system.
      */
     private long id;
     /**
@@ -34,7 +34,6 @@ public class Checkpoint {
         this.roadSection = roadSection;
         this.name = name;
         this.id = id;
-        //TODO figure out if the data type fits usage
         scannersIn = new ArrayList<Scanner>();
         scannersOut = new ArrayList<Scanner>();
     }
@@ -48,7 +47,8 @@ public class Checkpoint {
         scannersOut.add(scanner);
         return true;
     }
-    /* 
+    //TODO: define a reasonable access for scanner arrays, so they don't get modified outside of this class.
+    /*
     * If you want to remove some scanners you probably have to know what scanners you have on this checkpoint.
     * There is more than 1 way how to do this, but in this particular case you get a reference to scannersIn/Out arrays
     * which implies that you can remove scanners by using those references (from outside of this class in uncontrolled manner).

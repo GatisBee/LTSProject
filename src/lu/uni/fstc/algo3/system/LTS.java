@@ -2,20 +2,49 @@ package lu.uni.fstc.algo3.system;
 
 import lu.uni.fstc.algo3.statistics.ScanEntry;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
-/**
+/**This class represents top level of the LTS system. It provides public interfaces for different actors to access
+ * system functionality. It uses a singleton pattern to ensure that a single consistent instance of this class is maintained
+ * and other lower level classes can easily access fields of this class.
  * Created by Gatis on 27/03/2015.
  */
+//TODO: Interfaces for basic functionality of the system go here. Some additional support classes may be added or changed.
+    // MOST OF THE MEAT GOES IN THIS CLASS!
 public class LTS {
+
+    private double speedingPenalty;
     private RoadMap roadMap;
-    /** 
-    * This is the place where I imagine scans from all scanners could end up.
-    * And then different actors could query this collection. Since it is not constantly bothered with scan updates
-    * (scanners send their data once in some time period) it would make more sense to query this collection.
-    * On the other hand, it can happen that the road network is very large and many scanners want to send their data,
-    * so this collection could end up very bussy anyway. What kind of data struct we use and how we synchronize it will
-    * be very important.
-    */
     private Collection<ScanEntry> allScans;
+
+
+    private LTS _instance;
+
+    private LTS(RoadMap roadMap) {
+        this.roadMap = roadMap;
+    }
+
+    /**
+     * Returns an instance of this class.
+     * @return instance of this class.
+     */
+    public LTS getInstance() {
+        if (_instance == null) {
+            _instance = new LTS(new RoadMap());
+            return _instance;
+        } else {
+            return _instance;
+        }
+    }
+
+    /**
+     * Adds new scans to the central system registry of scans. Used by scanners to add their recent scans.
+     * @param scans scans to be added.
+     * @return success or failure of the operation.
+     */
+    public synchronized boolean addScans(Collection<? extends ScanEntry> scans) {
+        allScans.addAll(scans);
+        return true;
+    }
 }

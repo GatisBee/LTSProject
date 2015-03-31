@@ -3,10 +3,12 @@ package lu.uni.fstc.algo3.system;
 import lu.uni.fstc.algo3.statistics.ScanEntry;
 import lu.uni.fstc.algo3.vehicles.NumberPlate;
 
+import java.time.Instant;
 import java.util.Collection;
 
 /**
- * This class represents a scanner number plate scanner device in LTS road monitoring system.
+ * This class represents a number plate scanner device in LTS road monitoring system. We assume that a single device
+ * can scan single lane in one direction only.
  * Created by Gatis on 27/03/2015.
  */
 public class Scanner {
@@ -23,23 +25,24 @@ public class Scanner {
     * Idk if this is usefull yet. But for now we can leave it here, kinda makes sense.
     */
     private Checkpoint checkpoint;
+    /**
+     * It is responsibility of the user to indicate in which direction this scanner is pointed.
+     */
+    private Direction direction;
 
-    //TODO: We can use enum for this, but anyway direction is passed during construction from another class.
-    // so checks should be made elsewhere
-    private String direction;
-
-    protected Scanner(RoadSection roadSection, Checkpoint checkpoint, String direction) {
+    public Scanner(RoadSection roadSection, Checkpoint checkpoint, Direction direction) {
         this.roadSection = roadSection;
         this.checkpoint = checkpoint;
         this.direction = direction;
     }
 
     /**
-     * Scan each cars that the scanner see.
-     * @param plate
-     * @return
+     * Scans cars passing this scanner.
+     * @param plate number plate of the scanned vehicle
+     * @return success or failure of the operation.
      */
     protected boolean scan(NumberPlate plate) {
+        buffer.add(new ScanEntry(plate, Instant.now()));
         return true;
     }
 
@@ -48,6 +51,7 @@ public class Scanner {
      * @return A boolean value indicating operation success or failure.
      */
     private boolean flushBuffer() {
+        //TODO : define a policy for buffer flush (e.g. threshold for buffer when to flush and/or timer)
         return true;
     }
 }

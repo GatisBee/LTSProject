@@ -1,6 +1,7 @@
-package lu.uni.fstc.algo3.vehicles;
+package lu.uni.fstc.algo3.billing;
 
 /**
+ * Billing address of a vehicle owner.
  * Created by Gatis on 27/03/2015.
  */
 public class Address {
