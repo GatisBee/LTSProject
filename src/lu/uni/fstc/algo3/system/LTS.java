@@ -19,7 +19,7 @@ public class LTS {
     private Collection<ScanEntry> allScans;
 
 
-    private LTS _instance;
+    private static LTS _instance;
 
     private LTS(RoadMap roadMap) {
         this.roadMap = roadMap;
@@ -29,7 +29,7 @@ public class LTS {
      * Returns an instance of this class.
      * @return instance of this class.
      */
-    public LTS getInstance() {
+    public static LTS getInstance() {
         if (_instance == null) {
             _instance = new LTS(new RoadMap());
             return _instance;

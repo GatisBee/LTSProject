@@ -1,5 +1,7 @@
 package lu.uni.fstc.algo3.statistics;
 
+import lu.uni.fstc.algo3.system.Checkpoint;
+import lu.uni.fstc.algo3.system.Direction;
 import lu.uni.fstc.algo3.vehicles.NumberPlate;
 
 import java.time.Instant;
@@ -13,10 +15,16 @@ import java.time.Instant;
 public class ScanEntry {
     private NumberPlate numberPlate;
     private Instant timestamp;
+    private int scannerID;
+    private Checkpoint checkpoint;
+    private Direction direction;
 
-    public ScanEntry(NumberPlate numberPlate, Instant timestamp) {
+    public ScanEntry(NumberPlate numberPlate, Instant timestamp, int scannerID, Checkpoint checkpoint, Direction direction) {
         this.numberPlate = numberPlate;
         this.timestamp = timestamp;
+        this.scannerID = scannerID;
+        this.checkpoint = checkpoint;
+        this.direction = direction;
     }
 
     /**
