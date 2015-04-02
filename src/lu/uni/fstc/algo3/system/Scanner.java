@@ -4,10 +4,7 @@ import lu.uni.fstc.algo3.statistics.ScanEntry;
 import lu.uni.fstc.algo3.vehicles.NumberPlate;
 
 import java.time.Instant;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 /**
  * This class represents a number plate scanner device in LTS road monitoring system. We assume that a single device
@@ -19,7 +16,7 @@ public class Scanner {
     * I consider this as a software buffer, assuming that during buffer flush there is another hardware buffer
     * that can handle scans while this buffer is bussy transfering data.
     */
-    private Collection<ScanEntry> buffer;
+    private List<ScanEntry> buffer;
     /** 
     * Road section on which this scanner is located, can be used to change road sections vehicle counter.
     */
@@ -38,7 +35,7 @@ public class Scanner {
     private int scannerID;
     private static final int BUFFER_THRESHOLD = 1000; //flush at this buffer size
     private static final long TIME_TILL_FLUSH = 600000; //ms
-    private Timer timer; // timer for flush
+    private Timer timer; // timer for flush buffer
 
     public Scanner(RoadSection roadSection, Checkpoint checkpoint, int scannerID, Direction direction) {
         this.roadSection = roadSection;

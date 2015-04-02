@@ -1,11 +1,10 @@
 package lu.uni.fstc.algo3.system;
 
-import lu.uni.fstc.algo3.vehicles.Vehicle;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
+/** Road section for Luxembourg Toll System. Contains single section related information, like time needed to drive
+ * through a section without exceeding speed limits, it's checkpoints etc.
  * Created by Gatis on 27/03/2015.
  */
 public class RoadSection {
@@ -14,6 +13,7 @@ public class RoadSection {
      * identifier of this road section.
      */
     private String name;
+
     /**
      * The time (measured in seconds) needed for a car to drive through this road section without exceeding speed limit(s).
      * Since speed limit on a single road section may vary and due to several reasons there can be fluctuations in
@@ -32,10 +32,9 @@ public class RoadSection {
      */
     private int timeForTruck;
     /**
-     * A collection of checkpoints for this road section. We assume that a single road section can have more than 2
-     * entry/exit points thus a dynamic collection is used for storing this information.
+     * 2 checkpoints per road section.
      */
-    private Collection<Checkpoint> checkpoints;
+    private Checkpoint[] checkpoints;
     /** 
     * Number of vehicles currently on the road section. Increased/decreased by scanners through
     * vehicleEnters() and vehicleLeaves() methods. Access to this field is synchronized.
@@ -44,14 +43,14 @@ public class RoadSection {
 
     /**
      * A default constructor for this road section.
-     * @param timeForCar
-     * @param timeForBus
-     * @param timeForTruck
-     * @param name
+     * @param timeForCar time needed for a car to drive through this road section
+     * @param timeForBus time needed for a bus to drive through this road section
+     * @param timeForTruck time needed for a truck to drive through this road section
+     * @param name name of the road section
      */
     public RoadSection(int timeForCar, int timeForBus, int timeForTruck, String name) {
         vehiclesOnSection = 0L;
-        checkpoints = new ArrayList<Checkpoint>();
+        checkpoints = new Checkpoint[2];
         this.timeForCar = timeForCar;
         this.timeForBus = timeForBus;
         this.timeForTruck = timeForTruck;
@@ -59,22 +58,38 @@ public class RoadSection {
     }
 
     /**
-     * Adds a checkpoint (entry/exit) point to this road section.
-     * @param checkpoint checkpoint that should be added.
-     * @return success or failure of the operation.
+     * Adds a checkpoint to this road section. Road section can have 2 checkpoints.
+     * If this road section already has 2 checkpoints an error will be printed and method will return false.
+     * @param checkpoint checkpoint to add
+     * @return success or failure of the operation
      */
     protected boolean addCheckpoint(Checkpoint checkpoint) {
-        checkpoints.add(checkpoint);
+        if (checkpoints[0] == null) {
+            checkpoints[0] = checkpoint;
+        } else if (checkpoints[1] == null) {
+            checkpoints[1] = checkpoint;
+        } else {
+            System.err.print("This road section already has 2 checkpoints, please remove 1 checkpoint first and then try to add again.");
+            return false;
+        }
         return true;
     }
 
     /**
-     * Remove a checkpoint (entry/exit) from this road section.
+     * Remove a checkpoint (entry/exit) from this road section. If there are no checkpoints on this road section
+     * an error will be printed and method will return false.
      * @param checkpoint checkpoint that should be removed.
      * @return success or failure of the operation.
      */
     protected boolean removeCheckpoint(Checkpoint checkpoint) {
-        checkpoints.remove(checkpoint);
+        if (checkpoints[1] != null) {
+            checkpoints[1] = null;
+        } else if (checkpoints[0] != null) {
+            checkpoints[0] = null;
+        } else {
+            System.err.print("This road section has no checkpoints, nothing to remove.");
+            return false;
+        }
         return true;
     }
 
@@ -134,4 +149,23 @@ public class RoadSection {
         this.timeForTruck = timeForTruck;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getTimeForCar() {
+        return timeForCar;
+    }
+
+    public int getTimeForBus() {
+        return timeForBus;
+    }
+
+    public int getTimeForTruck() {
+        return timeForTruck;
+    }
+
+    public Checkpoint[] getCheckpoints() {
+        return checkpoints;
+    }
 }
