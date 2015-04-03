@@ -1,17 +1,13 @@
 package lu.uni.fstc.algo3.system;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 /**This class represents a starting/ending point of a road section. Each checkpoint can have [0,n] scanners facing
  * each direction (in, out).
  * Created by Gatis on 27/03/2015.
  */
 public class Checkpoint {
-    /**
-     * Road section to which this checkpoint belongs.
-     */
-    private RoadSection roadSection;
     /**
      * Name of the checkpoint
      */
@@ -24,14 +20,13 @@ public class Checkpoint {
     /**
      * Scanners for inbound traffic
      */
-    private Collection<Scanner> scannersIn;
+    private List<Scanner> scannersIn;
     /**
      * Scanners for outbound traffic
      */
-    private Collection<Scanner> scannersOut;
+    private List<Scanner> scannersOut;
 
-    public Checkpoint(RoadSection roadSection, String name, long id) {
-        this.roadSection = roadSection;
+    public Checkpoint(String name, long id) {
         this.name = name;
         this.id = id;
         scannersIn = new ArrayList<Scanner>();
@@ -47,28 +42,16 @@ public class Checkpoint {
         scannersOut.add(scanner);
         return true;
     }
-    //TODO: define a reasonable access for scanner arrays, so they don't get modified outside of this class.
-    /*
-    * If you want to remove some scanners you probably have to know what scanners you have on this checkpoint.
-    * There is more than 1 way how to do this, but in this particular case you get a reference to scannersIn/Out arrays
-    * which implies that you can remove scanners by using those references (from outside of this class in uncontrolled manner).
-    * On the other hand, we could provide methods in this class for such removals 
-    * and to NOT give direct references to ArrayLists storing those scanners.
-    */
-    public Collection<Scanner> getScannersIn() {
-    	//TODO: immutable scanners, unmodifiable arrays?
+
+    public List<Scanner> getScannersIn() {
         return scannersIn;
     }
 
-    public Collection<Scanner> getScannersOut() {
+    public List<Scanner> getScannersOut() {
         return scannersOut;
     }
 
-	public RoadSection getRoadSection() {
-		return roadSection;
-	}
-
-	public String getName() {
+    public String getName() {
 		return name;
 	}
 

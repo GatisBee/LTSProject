@@ -1,6 +1,9 @@
 package lu.uni.fstc.algo3.system;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** Road section for Luxembourg Toll System. Contains single section related information, like time needed to drive
  * through a section without exceeding speed limits, it's checkpoints etc.
  * Created by Gatis on 27/03/2015.
@@ -33,7 +36,7 @@ public class RoadSection {
      * 2 checkpoints per road section.
      */
     private Checkpoint[] checkpoints;
-    /** 
+    /**
     * Number of vehicles currently on the road section. Increased/decreased by scanners through
     * vehicleEnters() and vehicleLeaves() methods. Access to this field is synchronized.
     */
@@ -41,7 +44,7 @@ public class RoadSection {
 
     /**
      * A default constructor for this road section.
-     * @param timeForCar time needed for a car to drive through this road section
+     * @param timeForCar time needed for a car and motor cycle to drive through this road section
      * @param timeForBus time needed for a bus to drive through this road section
      * @param timeForTruck time needed for a truck to drive through this road section
      * @param name name of the road section

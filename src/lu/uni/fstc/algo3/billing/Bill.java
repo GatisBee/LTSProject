@@ -1,5 +1,6 @@
 package lu.uni.fstc.algo3.billing;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import lu.uni.fstc.algo3.vehicles.Vehicle;
@@ -12,7 +13,7 @@ public class Bill {
     /**
      * Date the bill was created.
      */
-    private Date date;
+    private LocalDateTime date;
     /**
      * Amount to pay for the usage of the road
      */
@@ -37,18 +38,17 @@ public class Bill {
     // using the road. This may also add additional changes to existing classes.
     //TODO: billing policy, pay each time you use some road section, pay for the day you used a section? several possible policies?
 
-    public Bill(Date date, double ammountToPay, boolean billPayed,
-			Vehicle vehicle, VehicleOwner vehicleOwner, Address address) {
+    public Bill(double ammountToPay, Vehicle vehicle, VehicleOwner vehicleOwner, Address address) {
 		super();
-		this.date = date;
+		this.date = LocalDateTime.now();
 		this.ammountToPay = ammountToPay;
-		this.billPayed = billPayed;
+		this.billPayed = false;
 		this.vehicle = vehicle;
 		this.vehicleOwner = vehicleOwner;
 		this.address = address;
 	}
 
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 	public double getAmmountToPay() {
@@ -65,6 +65,9 @@ public class Bill {
 	}
 	public Address getAddress() {
 		return address;
+	}
+	public void setBillPayed(boolean payed) {
+		billPayed = payed;
 	}
 
     // here we can design whatever style of bill we would like, but it should contain some information about why

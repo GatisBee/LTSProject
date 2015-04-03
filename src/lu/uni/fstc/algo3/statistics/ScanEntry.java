@@ -13,11 +13,11 @@ import java.time.Instant;
 public class ScanEntry {
     private NumberPlate numberPlate;
     private Instant timestamp;
-    private int scannerID;
+    private long scannerID;
     private Checkpoint checkpoint;
     private Direction direction;
 
-    public ScanEntry(NumberPlate numberPlate, Instant timestamp, int scannerID, Checkpoint checkpoint, Direction direction) {
+    public ScanEntry(NumberPlate numberPlate, Instant timestamp, long scannerID, Checkpoint checkpoint, Direction direction) {
         this.numberPlate = numberPlate;
         this.timestamp = timestamp;
         this.scannerID = scannerID;
@@ -41,7 +41,7 @@ public class ScanEntry {
         return timestamp;
     }
 
-	public int getScannerID() {
+	public long getScannerID() {
 		return scannerID;
 	}
 

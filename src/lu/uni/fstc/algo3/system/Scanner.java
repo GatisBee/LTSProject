@@ -21,7 +21,7 @@ public class Scanner {
     * Road section on which this scanner is located, can be used to change road sections vehicle counter.
     */
     private RoadSection roadSection;
-    /** 
+    /**
     * IDK if this is useful yet. But for now we can leave it here, kind of makes sense.
     */
     private Checkpoint checkpoint;
@@ -32,7 +32,7 @@ public class Scanner {
     /**
      * A unique scanner ID, should be provided with a uniqueness on system level.
      */
-    private int scannerID;
+    private long scannerID;
     private static final int BUFFER_THRESHOLD = 1000; //flush at this buffer size
     private static final long TIME_TILL_FLUSH = 600000; //ms
     private Timer timer; // timer for flush buffer
@@ -53,8 +53,16 @@ public class Scanner {
      * @param plate number plate of the scanned vehicle
      * @return success or failure of the operation.
      */
-    protected boolean scan(NumberPlate plate) {
+    public boolean scan(NumberPlate plate) {
+        /* Add  the new scan entry to buffer */
         buffer.add(new ScanEntry(plate, Instant.now(), scannerID, checkpoint, direction));
+        /* Increase or decrease the vehicle on road section counter, depending on the direction of the scanner */
+        if (direction == Direction.IN) {
+            roadSection.vehicleEnters();
+        } else {
+            roadSection.vehicleLeaves();
+        }
+        /* Flush the buffer is buffer threshold is reached */
         if (buffer.size() >= BUFFER_THRESHOLD) {
             flushBuffer();
         }

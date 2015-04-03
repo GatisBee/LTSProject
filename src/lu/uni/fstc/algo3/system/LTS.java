@@ -10,8 +10,6 @@ import lu.uni.fstc.algo3.statistics.ScanEntry;
  * and other lower level classes can easily access fields of this class.
  * Created by Gatis on 27/03/2015.
  */
-//TODO: Interfaces for basic functionality of the system go here. Some additional support classes may be added or changed.
-    // MOST OF THE MEAT GOES IN THIS CLASS!
 public class LTS {
 
     private double speedingPenalty;
@@ -60,5 +58,8 @@ public class LTS {
 	public void setSpeedingPenalty(double speedingPenalty) {
 		this.speedingPenalty = speedingPenalty;
 	}
-    
+
+    public RoadMap getRoadMap() {
+        return roadMap;
+    }
 }
