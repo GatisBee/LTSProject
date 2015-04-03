@@ -75,7 +75,7 @@ public class Scanner {
      */
     private boolean flushBuffer() {
     	LTS.getInstance().addScans(buffer);
-    	buffer.removeAll(buffer);
+    	buffer.removeAll(buffer); // linked lists iterator supports remove
     	return true;
     }
 
