@@ -3,6 +3,7 @@ package lu.uni.fstc.algo3.system;
 import java.util.*;
 
 /**
+ * A road map for Luxembourg Toll System consisting of road sections.
  * Created by Gatis on 27/03/2015.
  */
 public class RoadMap {
@@ -12,6 +13,12 @@ public class RoadMap {
     private Collection<RoadSection> map;
 
     //TODO: Ensure that the map or it's elements are not modified from outside of this class except by the methods provided by this class.
+    /**
+     * Default constructor
+     */
+    public RoadMap() {
+    	map = new ArrayList<RoadSection>();
+    }
     /**
      * Get the map with road sections (if any are present).
      * @return map collection representing this road map.

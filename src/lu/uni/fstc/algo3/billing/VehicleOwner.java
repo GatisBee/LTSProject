@@ -31,4 +31,20 @@ public class VehicleOwner {
         ownedVehicles = new LinkedList<Vehicle>(); // linked list just for a change, probably sequential access will be used
         ownedVehicles.add(vehicle);
     }
+
+	public List<Vehicle> getOwnedVehicles() {
+		return ownedVehicles;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
 }

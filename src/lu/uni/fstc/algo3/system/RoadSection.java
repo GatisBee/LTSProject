@@ -1,7 +1,5 @@
 package lu.uni.fstc.algo3.system;
 
-import java.util.ArrayList;
-import java.util.Collection;
 
 /** Road section for Luxembourg Toll System. Contains single section related information, like time needed to drive
  * through a section without exceeding speed limits, it's checkpoints etc.

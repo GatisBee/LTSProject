@@ -1,9 +1,9 @@
 package lu.uni.fstc.algo3.system;
 
-import lu.uni.fstc.algo3.statistics.ScanEntry;
-
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
+
+import lu.uni.fstc.algo3.statistics.ScanEntry;
 
 /**This class represents top level of the LTS system. It provides public interfaces for different actors to access
  * system functionality. It uses a singleton pattern to ensure that a single consistent instance of this class is maintained
@@ -15,7 +15,7 @@ import java.util.Collection;
 public class LTS {
 
     private double speedingPenalty;
-    private RoadMap roadMap;
+    private RoadMap roadMap; // will be used when system will be ready
     private Collection<ScanEntry> allScans;
 
 
@@ -23,6 +23,11 @@ public class LTS {
 
     private LTS(RoadMap roadMap) {
         this.roadMap = roadMap;
+        /*
+         * I don't use array list, because there is will be sequential access and
+         * for big lists it is costly to increase the size of array list (doubling the size and copying all elements)
+         */
+        allScans = new LinkedList<ScanEntry>();
     }
 
     /**
@@ -47,4 +52,13 @@ public class LTS {
         allScans.addAll(scans);
         return true;
     }
+
+	public double getSpeedingPenalty() {
+		return speedingPenalty;
+	}
+
+	public void setSpeedingPenalty(double speedingPenalty) {
+		this.speedingPenalty = speedingPenalty;
+	}
+    
 }

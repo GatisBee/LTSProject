@@ -8,8 +8,6 @@ import java.time.Instant;
 
 /**
  * Immutable class for representing a scan entry in LTS system.
- * It contains 2 fields describing a scan entry. Namely licence plate of a vehicle in question
- * and the time the scan was made.
  * Created by Gatis on 27/03/2015.
  */
 public class ScanEntry {
@@ -42,5 +40,17 @@ public class ScanEntry {
     public Instant getTimestamp() {
         return timestamp;
     }
+
+	public int getScannerID() {
+		return scannerID;
+	}
+
+	public Checkpoint getCheckpoint() {
+		return checkpoint;
+	}
+
+	public Direction getDirection() {
+		return direction;
+	}
 
 }

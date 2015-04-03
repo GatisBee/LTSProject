@@ -7,14 +7,14 @@ import java.time.Instant;
 import java.util.*;
 
 /**
- * This class represents a number plate scanner device in LTS road monitoring system. We assume that a single device
+ * This class represents a number plate scanner device in Luxembourg Toll System. We assume that a single device
  * can scan single lane in one direction only.
  * Created by Gatis on 27/03/2015.
  */
 public class Scanner {
     /** 
-    * I consider this as a software buffer, assuming that during buffer flush there is another hardware buffer
-    * that can handle scans while this buffer is bussy transfering data.
+    * We consider this as a software buffer, assuming that during buffer flush there is another hardware buffer
+    * that can handle scans while this buffer is busy transferring data.
     */
     private List<ScanEntry> buffer;
     /** 
@@ -22,7 +22,7 @@ public class Scanner {
     */
     private RoadSection roadSection;
     /** 
-    * Idk if this is usefull yet. But for now we can leave it here, kinda makes sense.
+    * IDK if this is useful yet. But for now we can leave it here, kind of makes sense.
     */
     private Checkpoint checkpoint;
     /**
@@ -66,8 +66,9 @@ public class Scanner {
      * @return A boolean value indicating operation success or failure.
      */
     private boolean flushBuffer() {
-        //TODO: implement flush method (flush to LTS.getInstance().addScans(buffer);)
-        return true;
+    	LTS.getInstance().addScans(buffer);
+    	buffer.removeAll(buffer);
+    	return true;
     }
 
     /**

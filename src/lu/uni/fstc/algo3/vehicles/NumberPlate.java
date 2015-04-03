@@ -9,4 +9,7 @@ public class NumberPlate {
         this.numberPlate = numberPlate;
     }
     //TODO methods for comparison, hashCode and equals
+	public String getNumberPlate() {
+		return numberPlate;
+	}
 }

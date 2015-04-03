@@ -56,10 +56,23 @@ public class Checkpoint {
     * and to NOT give direct references to ArrayLists storing those scanners.
     */
     public Collection<Scanner> getScannersIn() {
+    	//TODO: immutable scanners, unmodifiable arrays?
         return scannersIn;
     }
 
     public Collection<Scanner> getScannersOut() {
         return scannersOut;
     }
+
+	public RoadSection getRoadSection() {
+		return roadSection;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public long getId() {
+		return id;
+	}
 }
