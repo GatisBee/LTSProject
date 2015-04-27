@@ -2,6 +2,7 @@ package lu.uni.fstc.algo3.system;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**This class represents a starting/ending point of a road section. Each checkpoint can have [0,n] scanners facing
  * each direction (in, out).
@@ -16,7 +17,7 @@ public class Checkpoint {
      * A unique identifier of a checkpoint
      * The uniqueness of the identifier should be enforced from outside of this class on the scope of whole system.
      */
-    private long id;
+    private UUID id;
     /**
      * Scanners for inbound traffic
      */
@@ -26,11 +27,11 @@ public class Checkpoint {
      */
     private List<Scanner> scannersOut;
 
-    public Checkpoint(String name, long id) {
+    public Checkpoint(String name, UUID id) {
         this.name = name;
         this.id = id;
-        scannersIn = new ArrayList<Scanner>();
-        scannersOut = new ArrayList<Scanner>();
+        scannersIn = new ArrayList<>();
+        scannersOut = new ArrayList<>();
     }
 
     public boolean addScannerIn(Scanner scanner) {
@@ -55,7 +56,7 @@ public class Checkpoint {
 		return name;
 	}
 
-	public long getId() {
+	public UUID getId() {
 		return id;
 	}
 }

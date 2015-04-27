@@ -5,6 +5,7 @@ import lu.uni.fstc.algo3.system.Direction;
 import lu.uni.fstc.algo3.vehicles.NumberPlate;
 
 import java.time.Instant;
+import java.util.UUID;
 
 /**
  * Immutable class for representing a scan entry in LTS system.
@@ -13,11 +14,11 @@ import java.time.Instant;
 public class ScanEntry {
     private NumberPlate numberPlate;
     private Instant timestamp;
-    private long scannerID;
+    private UUID scannerID;
     private Checkpoint checkpoint;
     private Direction direction;
 
-    public ScanEntry(NumberPlate numberPlate, Instant timestamp, long scannerID, Checkpoint checkpoint, Direction direction) {
+    public ScanEntry(NumberPlate numberPlate, Instant timestamp, UUID scannerID, Checkpoint checkpoint, Direction direction) {
         this.numberPlate = numberPlate;
         this.timestamp = timestamp;
         this.scannerID = scannerID;
@@ -41,7 +42,7 @@ public class ScanEntry {
         return timestamp;
     }
 
-	public long getScannerID() {
+	public UUID getScannerID() {
 		return scannerID;
 	}
 

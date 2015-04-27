@@ -4,5 +4,5 @@ package lu.uni.fstc.algo3.actors;
  * Created by Gatis on 27/03/2015.
  */
 public interface SystemUser {
-
+    boolean login(String username, String password);
 }

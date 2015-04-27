@@ -32,18 +32,18 @@ public class Scanner {
     /**
      * A unique scanner ID, should be provided with a uniqueness on system level.
      */
-    private long scannerID;
+    private UUID scannerID;
     private static final int BUFFER_THRESHOLD = 1000; //flush at this buffer size
     private static final long TIME_TILL_FLUSH = 600000; //ms
     private Timer timer; // timer for flush buffer
 
-    public Scanner(RoadSection roadSection, Checkpoint checkpoint, int scannerID, Direction direction) {
+    public Scanner(RoadSection roadSection, Checkpoint checkpoint, UUID scannerID, Direction direction) {
         this.roadSection = roadSection;
         this.checkpoint = checkpoint;
         this.direction = direction;
         this.scannerID = scannerID;
 
-        buffer = new LinkedList<ScanEntry>(); // inserting elements at the end of the list, no retrieval operations
+        buffer = new LinkedList<>(); // inserting elements at the end of the list, no retrieval operations
         timer = new Timer();
         timer.schedule(new FushTask(), TIME_TILL_FLUSH, TIME_TILL_FLUSH); //execute every TIME_TILL_FLUSH milliseconds
     }

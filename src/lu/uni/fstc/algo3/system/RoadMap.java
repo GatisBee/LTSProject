@@ -1,6 +1,7 @@
 package lu.uni.fstc.algo3.system;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public class RoadMap {
      * Default constructor
      */
     public RoadMap() {
-    	map = new ArrayList<RoadSection>();
+    	map = new ArrayList<>();
     }
     /**
      * Get the map with road sections (if any are present).
@@ -28,6 +29,16 @@ public class RoadMap {
 
     public boolean addSection(RoadSection section) {
         map.add(section);
+        return true;
+    }
+
+    /**
+     * Adds all road sections to this road map.
+     * @param allSections collection of road sections to add
+     * @return success if true
+     */
+    public boolean addAllSections(Collection<? extends RoadSection> allSections) {
+        map.addAll(allSections);
         return true;
     }
 
