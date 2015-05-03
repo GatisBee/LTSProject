@@ -1,6 +1,8 @@
 package lu.uni.fstc.algo3.simulation;
 
+import lu.uni.fstc.algo3.billing.VehicleRegister;
 import lu.uni.fstc.algo3.system.*;
+import lu.uni.fstc.algo3.utilities.ParameterGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +13,6 @@ import java.util.List;
  */
 public class Environment {
     /**
-     * Road map
-     */
-    private RoadMap map;
-    /**
      * List of all road sections
      */
     private List<RoadSection> sections;
@@ -22,17 +20,33 @@ public class Environment {
      * A parameter generator for constructing environment objects.
      */
     private ParameterGenerator generator;
+    /**
+     * LTS system object
+     */
+    private LTS lts;
+    private int numberOfSections;
 
     /**
      * Default constructor creates and initializes environment for LTS system.
      * @param numberOfSections number of road sections that should be created.
      */
     public Environment(int numberOfSections) {
-        map = new RoadMap();
+        //create LTS
+        lts = LTS.getInstance();
+        this.numberOfSections = numberOfSections;
+        // create array to hold sections
         sections = new ArrayList<>(numberOfSections);
+        // create generator for parameters
         generator = new ParameterGenerator();
+        // create specified number of sections
         createSections(sections);
-        map.addAllSections(sections);
+        // assign road sections to lts road map
+        System.out.println("Adding road sections to map: " + lts.getRoadMap().addAllSections(sections));
+        // setup speeding penalty for this lts
+        lts.setSpeedingPenalty(20.0d);
+
+        //create vehicle registry and related objects
+
     }
 
     /**
@@ -42,15 +56,15 @@ public class Environment {
      */
     private void createSections(List<RoadSection> sections) {
         // generate the sections
-        for (int i = 0; i < sections.size(); i++) {
+        for (int i = 0; i < numberOfSections; i++) {
             sections.add(new RoadSection(generator.getCarTime(), generator.getBusTime(),
                     generator.getTruckTime(), generator.getRoadSectionName()));
         }
         // for every section create checkpoints and scanners
         for (RoadSection rs : sections) {
             // 2 checkpoints per section
-            rs.addCheckpoint(new Checkpoint(rs.getName() + " : checkpoint 1", generator.getCheckpointId()));
-            rs.addCheckpoint(new Checkpoint(rs.getName() + " : checkpoint 2", generator.getCheckpointId()));
+            rs.addCheckpoint(new Checkpoint("Checkpoint #1, " + rs.getName(), generator.getCheckpointId()));
+            rs.addCheckpoint(new Checkpoint("Checkpoint #2, " + rs.getName(), generator.getCheckpointId()));
             // add 2 scanners for each checkpoint, 1 scanner for 1 direction
             Checkpoint[] checkpoints = rs.getCheckpoints();
             for (Checkpoint cp : checkpoints) {
@@ -58,6 +72,13 @@ public class Environment {
                 cp.addScannerOut(new Scanner(rs, cp, generator.getScannerId(), Direction.OUT));
             }
         }
-
+    }
+    //todo: populate the register with vehicle and owner data
+    private void populateRegister() {
+        // get register
+        VehicleRegister register = LTS.getInstance().getVehicleRegister();
+        // create streams to read data from file
+        // create parsers of that data
+        // add entries to the register
     }
 }

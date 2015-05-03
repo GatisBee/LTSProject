@@ -19,7 +19,7 @@ public class DataGenerator {
     private Random random;
     private static final int MAX_NUMBER = 999998;
     private static final int MIN_NUMBER = 1;
-    private static final int SET_SIZE = 1000;
+    private static final int SET_SIZE = 100;
     private Set<Integer> numbers;
     private FileOutputStream fos;
 

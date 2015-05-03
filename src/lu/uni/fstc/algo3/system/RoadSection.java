@@ -16,7 +16,7 @@ public class RoadSection {
     private String name;
 
     /**
-     * The time (measured in seconds) needed for a car to drive through this road section without exceeding speed limit(s).
+     * The time (measured in millis) needed for a car to drive through this road section without exceeding speed limit(s).
      * Since speed limit on a single road section may vary and due to several reasons there can be fluctuations in
      * drive-through time. It is mandatory to establish a reasonable buffer for overhead after which a driver could be
      * charged with additional fee for speeding.
@@ -24,12 +24,12 @@ public class RoadSection {
     private int timeForCar;
     /**
      * Almost the same as for cars, but the speed limits may be different thus a different drive-through time
-     * (measured in seconds).
+     * (measured in millis).
      */
     private int timeForBus;
     /**
      * Almost the same as for cars, but the speed limits may be different thus a different drive-through time
-     * (measured in seconds).
+     * (measured in millis).
      */
     private int timeForTruck;
     /**
@@ -64,7 +64,7 @@ public class RoadSection {
      * @param checkpoint checkpoint to add
      * @return success or failure of the operation
      */
-    protected boolean addCheckpoint(Checkpoint checkpoint) {
+    public boolean addCheckpoint(Checkpoint checkpoint) {
         if (checkpoints[0] == null) {
             checkpoints[0] = checkpoint;
         } else if (checkpoints[1] == null) {
@@ -82,7 +82,7 @@ public class RoadSection {
      * @param checkpoint checkpoint that should be removed.
      * @return success or failure of the operation.
      */
-    protected boolean removeCheckpoint(Checkpoint checkpoint) {
+    public boolean removeCheckpoint(Checkpoint checkpoint) {
         if (checkpoints[1] != null) {
             checkpoints[1] = null;
         } else if (checkpoints[0] != null) {
@@ -169,4 +169,9 @@ public class RoadSection {
     public Checkpoint[] getCheckpoints() {
         return checkpoints;
     }
+    @Override
+    public String toString() {
+        return new String(getName());
+    }
 }
+

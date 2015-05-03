@@ -3,6 +3,7 @@ package lu.uni.fstc.algo3.system;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import lu.uni.fstc.algo3.billing.VehicleRegister;
 import lu.uni.fstc.algo3.statistics.ScanEntry;
 
 /**This class represents top level of the LTS system. It provides public interfaces for different actors to access
@@ -15,17 +16,21 @@ public class LTS {
     private double speedingPenalty;
     private RoadMap roadMap; // will be used when system will be ready
     private Collection<ScanEntry> allScans;
+    private VehicleRegister vehicleRegister;
 
 
     private static LTS _instance;
 
-    private LTS(RoadMap roadMap) {
-        this.roadMap = roadMap;
+
+    private LTS() {
+        this.roadMap = new RoadMap();
+
         /*
          * I don't use array list, because there is will be sequential access and
          * for big lists it is costly to increase the size of array list (doubling the size and copying all elements)
          */
         allScans = new LinkedList<ScanEntry>();
+        vehicleRegister = new VehicleRegister();
     }
 
     /**
@@ -34,7 +39,7 @@ public class LTS {
      */
     public static LTS getInstance() {
         if (_instance == null) {
-            _instance = new LTS(new RoadMap());
+            _instance = new LTS();
             return _instance;
         } else {
             return _instance;
@@ -51,15 +56,36 @@ public class LTS {
         return true;
     }
 
+    /**
+     * Can be used for billing speeders
+     * @return speed penalty in this LTS
+     */
 	public double getSpeedingPenalty() {
 		return speedingPenalty;
 	}
 
+    /**
+     * Set value of speed penalty when system is created.
+     * @param speedingPenalty speed penalty
+     */
 	public void setSpeedingPenalty(double speedingPenalty) {
 		this.speedingPenalty = speedingPenalty;
 	}
 
+    /**
+     * Get instance of road map for this LTS. Can be used to initialize the road map when system is created.
+     * @return road map of this LTS
+     */
     public RoadMap getRoadMap() {
         return roadMap;
     }
+
+    /**
+     * Get an instance of this LTS vehicle register.
+     * @return vehicle register
+     */
+    public VehicleRegister getVehicleRegister() {
+        return vehicleRegister;
+    }
+
 }

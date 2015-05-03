@@ -21,7 +21,11 @@ public class NumberPlate {
      * Returns this number plate.
      * @return number plate
      */
-	public String getNumberPlate() {
+	private String getNumberPlate() {
 		return numberPlate;
 	}
+    @Override
+    public String toString() {
+        return getNumberPlate();
+    }
 }

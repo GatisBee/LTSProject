@@ -2,6 +2,7 @@ package lu.uni.fstc.algo3;
 
 import lu.uni.fstc.algo3.simulation.Environment;
 import lu.uni.fstc.algo3.utilities.DataGenerator;
+import lu.uni.fstc.algo3.utilities.ScanGenerator;
 
 import java.util.Scanner;
 
@@ -9,10 +10,14 @@ public class LTSRunner {
 
     public static void main(String[] args) {
         System.out.println("Hello LTS user!");
+//        LTSRunner.generateNumberPlates();
         Environment environment = new Environment(10);
+        ScanGenerator scanGenerator = new ScanGenerator();
         Scanner reader = new Scanner(System.in);
+
         while (true) {
             String line = null;
+            System.out.print(">");
             if (reader.hasNextLine()) {
                 line = reader.nextLine();
             }
@@ -21,16 +26,21 @@ public class LTSRunner {
                 // interpret line, otherwise continue
                 if (line.equals("start")) {
                     // start simulation
+                    scanGenerator.startGenerating();
                 } else if (line.equals("stop")) {
                     // stop simulation
+                    scanGenerator.stopGenerating();
                 } else if (line.equals("exit") || line.equals("quit")) {
                     System.out.println("Exiting LTS...");
                     // cleanup and exit
+                    scanGenerator.stopGenerating();
+                    reader.close();
                     System.exit(0);
                 }
                 // etc.
             }
         }
+
     }
 
     /**

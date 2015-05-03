@@ -1,4 +1,4 @@
-package lu.uni.fstc.algo3.simulation;
+package lu.uni.fstc.algo3.utilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class ParameterGenerator {
     /**
      * Builder to generate new names for <code>RoadSection</code>
      */
-    private StringBuilder sectionName;
+    private String sectionName;
     /**
      * Index to append to <code>RoadSection</code> name, so that it would be unique.
      */
@@ -46,13 +46,13 @@ public class ParameterGenerator {
     private int truckIndex;
 
     public ParameterGenerator() {
-        sectionName = new StringBuilder("Road Section #");
+        sectionName = new String("Road Section #");
         sectionIndex = 1;
 
         checkpointIds = new ArrayList<>();
         scannerIds = new ArrayList<>();
 
-        carTimes = new int[]{100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000};
+        carTimes = new int[]{10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 19000};
         busTimes = new int[carTimes.length];
         for (int i = 0; i < carTimes.length; i++) {
             busTimes[i] = (int) (carTimes[i] * 0.9);
@@ -71,7 +71,7 @@ public class ParameterGenerator {
      */
     public String getRoadSectionName() {
         // append number to name and increment the number
-        return sectionName.append(sectionIndex++).toString();
+        return sectionName + sectionIndex++;
     }
 
     /**

@@ -53,9 +53,11 @@ public class Scanner {
      * @param plate number plate of the scanned vehicle
      * @return success or failure of the operation.
      */
-    public boolean scan(NumberPlate plate) {
+    public synchronized boolean scan(NumberPlate plate) {
         /* Add  the new scan entry to buffer */
         buffer.add(new ScanEntry(plate, Instant.now(), scannerID, checkpoint, direction));
+        System.out.println("Scanner: " + scannerID + " checkpoint: " + checkpoint.getName());
+        System.out.println("Number plate: " + plate + "; Direction: " + direction);
         /* Increase or decrease the vehicle on road section counter, depending on the direction of the scanner */
         if (direction == Direction.IN) {
             roadSection.vehicleEnters();
@@ -64,6 +66,7 @@ public class Scanner {
         }
         /* Flush the buffer is buffer threshold is reached */
         if (buffer.size() >= BUFFER_THRESHOLD) {
+            System.out.println("Scanner buffer full, flushing...");
             flushBuffer();
         }
         return true;
@@ -88,7 +91,8 @@ public class Scanner {
             /**
              * Flushes the buffer of this scanner.
              */
-            Scanner.this.flushBuffer(); // have to test, but looks legit :)
+            System.out.println(Thread.currentThread().getName() + " buffer timer expired, flushing scanners buffer...");
+            flushBuffer();
         }
     }
 }

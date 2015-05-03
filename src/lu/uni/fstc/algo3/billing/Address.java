@@ -5,24 +5,20 @@ package lu.uni.fstc.algo3.billing;
  * Created by Gatis on 27/03/2015.
  */
 public class Address {
-    private String streetName;
+    private String street;
     private String country;
     private String city;
-    private int streetNumber;
-    private String streetNumberAppendix;
-	
-    public Address(String streetName, String country, String city,
-			int streetNumber, String streetNumberAppendix) {
+	private String zipCode;
+    public Address(String street, String country, String city, String zipCode) {
 		super();
-		this.streetName = streetName;
+		this.street = street;
 		this.country = country;
 		this.city = city;
-		this.streetNumber = streetNumber;
-		this.streetNumberAppendix = streetNumberAppendix;
+		this.zipCode = zipCode;
 	}
 
 	public String getStreetName() {
-		return streetName;
+		return street;
 	}
 
 	public String getCountry() {
@@ -32,13 +28,8 @@ public class Address {
 	public String getCity() {
 		return city;
 	}
-
-	public int getStreetNumber() {
-		return streetNumber;
-	}
-
 	public String getStreetNumberAppendix() {
-		return streetNumberAppendix;
+		return zipCode;
 	}
     
 }

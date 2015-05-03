@@ -82,4 +82,11 @@ public class Vehicle {
 		return owner;
 	}
 
+	/**
+	 * Set vehicle owner.
+	 * @param owner new owner of the vehicle
+	 */
+	public void setOwner(VehicleOwner owner) {
+		this.owner = owner;
+	}
 }
