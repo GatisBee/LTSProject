@@ -16,7 +16,8 @@ public class VehicleOwner {
 
     /**
      * Default constructor of an owner.
-     * @param name name of the owner (firstName lastName)
+     *
+     * @param name    name of the owner (firstName lastName)
      * @param address address
      * @param vehicle must own at least 1 vehicle
      */
@@ -28,7 +29,15 @@ public class VehicleOwner {
         ownedVehicles.add(vehicle);
     }
 
-	public List<Vehicle> getOwnedVehicles() { return ownedVehicles; }
-    public String getName() { return this.name; }
-	public Address getAddress() { return address; }
+    public List<Vehicle> getOwnedVehicles() {
+        return ownedVehicles;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
 }

@@ -7,7 +7,8 @@ import lu.uni.fstc.algo3.utilities.ParameterGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Represents LTS environment with its road map (road sections, scanners, etc.). It contains methods for
+/**
+ * Represents LTS environment with its road map (road sections, scanners, etc.). It contains methods for
  * initializing environment for simulation of the system.
  * Created by Gatis on 25/04/2015.
  */
@@ -28,6 +29,7 @@ public class Environment {
 
     /**
      * Default constructor creates and initializes environment for LTS system.
+     *
      * @param numberOfSections number of road sections that should be created.
      */
     public Environment(int numberOfSections) {
@@ -52,6 +54,7 @@ public class Environment {
     /**
      * Creates road sections and related objects. Number of road sections depends on the number
      * passed to the default constructor.
+     *
      * @param sections Collection of desired size for all road sections. Size = number of sections.
      */
     private void createSections(List<RoadSection> sections) {
@@ -73,6 +76,7 @@ public class Environment {
             }
         }
     }
+
     //todo: populate the register with vehicle and owner data
     private void populateRegister() {
         // get register

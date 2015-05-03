@@ -2,9 +2,11 @@ package lu.uni.fstc.algo3.simulation;
 
 import lu.uni.fstc.algo3.vehicles.NumberPlate;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -45,6 +47,7 @@ public class NumberPlateLoader {
 
     /**
      * A getter for <code>NumberPlate</code> collection.
+     *
      * @return collection of <code>NumberPlate</code> if load was successful empty collection otherwise.
      */
     public List<NumberPlate> getNumberPlates() {

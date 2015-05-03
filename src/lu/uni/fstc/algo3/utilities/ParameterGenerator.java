@@ -67,6 +67,7 @@ public class ParameterGenerator {
     /**
      * Generates a unique name for a <code>RoadSection</code>. Name consists of 'Road Section : ' <code>String</code>
      * and incremental number of the section that is created.
+     *
      * @return returns a unique name <code>String</code> for a road section
      */
     public String getRoadSectionName() {
@@ -78,6 +79,7 @@ public class ParameterGenerator {
      * Gets time needed for a car to drive through a road section. Times are stored in a predefined array which is
      * traversed in a sequential manner. Each time method is called index of array is incremented or reset to 0 when
      * end of the array is reached.
+     *
      * @return time in millis
      */
     public int getCarTime() {
@@ -88,15 +90,18 @@ public class ParameterGenerator {
      * Gets time needed for a bus to drive through a road section. Times are stored in a predefined array which is
      * traversed in a sequential manner. Each time method is called index of array is incremented or reset to 0 when
      * end of the array is reached.
+     *
      * @return time in millis
      */
     public int getBusTime() {
         return busTimes[busIndex++];
     }
+
     /**
      * Gets time needed for a truck to drive through a road section. Times are stored in a predefined array which is
      * traversed in a sequential manner. Each time method is called index of array is incremented or reset to 0 when
      * end of the array is reached.
+     *
      * @return time in millis
      */
     public int getTruckTime() {
@@ -105,6 +110,7 @@ public class ParameterGenerator {
 
     /**
      * Generates a unique id for a checkpoint.
+     *
      * @return a unique id
      */
     public UUID getCheckpointId() {
@@ -113,6 +119,7 @@ public class ParameterGenerator {
 
     /**
      * Generates a unique id for a scanner.
+     *
      * @return unique id
      */
     public UUID getScannerId() {

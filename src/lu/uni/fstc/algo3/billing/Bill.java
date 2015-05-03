@@ -1,9 +1,8 @@
 package lu.uni.fstc.algo3.billing;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
 import lu.uni.fstc.algo3.vehicles.Vehicle;
+
+import java.time.LocalDateTime;
 
 /**
  * A bill that will be created for the usage of the road network. Billing policy is not yet defined.
@@ -39,36 +38,42 @@ public class Bill {
     //TODO: billing policy, pay each time you use some road section, pay for the day you used a section? several possible policies?
 
     public Bill(double ammountToPay, Vehicle vehicle, VehicleOwner vehicleOwner, Address address) {
-		super();
-		this.date = LocalDateTime.now();
-		this.ammountToPay = ammountToPay;
-		this.billPayed = false;
-		this.vehicle = vehicle;
-		this.vehicleOwner = vehicleOwner;
-		this.address = address;
-	}
+        super();
+        this.date = LocalDateTime.now();
+        this.ammountToPay = ammountToPay;
+        this.billPayed = false;
+        this.vehicle = vehicle;
+        this.vehicleOwner = vehicleOwner;
+        this.address = address;
+    }
 
-	public LocalDateTime getDate() {
-		return date;
-	}
-	public double getAmmountToPay() {
-		return ammountToPay;
-	}
-	public boolean isBillPayed() {
-		return billPayed;
-	}
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
-	public VehicleOwner getVehicleOwner() {
-		return vehicleOwner;
-	}
-	public Address getAddress() {
-		return address;
-	}
-	public void setBillPayed(boolean payed) {
-		billPayed = payed;
-	}
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public double getAmmountToPay() {
+        return ammountToPay;
+    }
+
+    public boolean isBillPayed() {
+        return billPayed;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public VehicleOwner getVehicleOwner() {
+        return vehicleOwner;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setBillPayed(boolean payed) {
+        billPayed = payed;
+    }
 
     // here we can design whatever style of bill we would like, but it should contain some information about why
     // the final bill price is as it is.

@@ -1,6 +1,7 @@
 package lu.uni.fstc.algo3;
 
 import lu.uni.fstc.algo3.simulation.Environment;
+import lu.uni.fstc.algo3.system.LTS;
 import lu.uni.fstc.algo3.utilities.DataGenerator;
 import lu.uni.fstc.algo3.utilities.ScanGenerator;
 
@@ -35,6 +36,7 @@ public class LTSRunner {
                     // cleanup and exit
                     scanGenerator.stopGenerating();
                     reader.close();
+                    LTS.getInstance().printScans();
                     System.exit(0);
                 }
                 // etc.

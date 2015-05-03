@@ -1,10 +1,8 @@
 package lu.uni.fstc.algo3.system;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-/** Road section for Luxembourg Toll System. Contains single section related information, like time needed to drive
+/**
+ * Road section for Luxembourg Toll System. Contains single section related information, like time needed to drive
  * through a section without exceeding speed limits, it's checkpoints etc.
  * Created by Gatis on 27/03/2015.
  */
@@ -37,17 +35,18 @@ public class RoadSection {
      */
     private Checkpoint[] checkpoints;
     /**
-    * Number of vehicles currently on the road section. Increased/decreased by scanners through
-    * vehicleEnters() and vehicleLeaves() methods. Access to this field is synchronized.
-    */
+     * Number of vehicles currently on the road section. Increased/decreased by scanners through
+     * vehicleEnters() and vehicleLeaves() methods. Access to this field is synchronized.
+     */
     private long vehiclesOnSection;
 
     /**
      * A default constructor for this road section.
-     * @param timeForCar time needed for a car and motor cycle to drive through this road section
-     * @param timeForBus time needed for a bus to drive through this road section
+     *
+     * @param timeForCar   time needed for a car and motor cycle to drive through this road section
+     * @param timeForBus   time needed for a bus to drive through this road section
      * @param timeForTruck time needed for a truck to drive through this road section
-     * @param name name of the road section
+     * @param name         name of the road section
      */
     public RoadSection(int timeForCar, int timeForBus, int timeForTruck, String name) {
         vehiclesOnSection = 0L;
@@ -61,6 +60,7 @@ public class RoadSection {
     /**
      * Adds a checkpoint to this road section. Road section can have 2 checkpoints.
      * If this road section already has 2 checkpoints an error will be printed and method will return false.
+     *
      * @param checkpoint checkpoint to add
      * @return success or failure of the operation
      */
@@ -79,6 +79,7 @@ public class RoadSection {
     /**
      * Remove a checkpoint (entry/exit) from this road section. If there are no checkpoints on this road section
      * an error will be printed and method will return false.
+     *
      * @param checkpoint checkpoint that should be removed.
      * @return success or failure of the operation.
      */
@@ -96,6 +97,7 @@ public class RoadSection {
 
     /**
      * Call when a vehicle enters this road section.
+     *
      * @return success or failure of the operation.
      */
     public synchronized boolean vehicleEnters() {
@@ -105,6 +107,7 @@ public class RoadSection {
 
     /**
      * Call when a vehicle leaves this road section.
+     *
      * @return success or failure of the operation.
      */
     public synchronized boolean vehicleLeaves() {
@@ -114,6 +117,7 @@ public class RoadSection {
 
     /**
      * Gets the current number of vehicles on this road section.
+     *
      * @return number of vehicles on this road section.
      */
     public synchronized long getVehiclesOnSection() {
@@ -122,6 +126,7 @@ public class RoadSection {
 
     /**
      * Sets the name of this road section.
+     *
      * @param name new name of the road section.
      */
     public void setName(String name) {
@@ -130,20 +135,25 @@ public class RoadSection {
 
     /**
      * Sets the time needed to drive-through this road section without exceeding the speed limit(s).
+     *
      * @param timeForCar time needed for drive-through
      */
     public void setTimeForCar(int timeForCar) {
         this.timeForCar = timeForCar;
     }
+
     /**
      * Sets the time needed to drive-through this road section without exceeding the speed limit(s).
+     *
      * @param timeForBus time needed for drive-through
      */
     public void setTimeForBus(int timeForBus) {
         this.timeForBus = timeForBus;
     }
+
     /**
      * Sets the time needed to drive-through this road section without exceeding the speed limit(s).
+     *
      * @param timeForTruck time needed for drive-through
      */
     public void setTimeForTruck(int timeForTruck) {
@@ -169,6 +179,7 @@ public class RoadSection {
     public Checkpoint[] getCheckpoints() {
         return checkpoints;
     }
+
     @Override
     public String toString() {
         return new String(getName());

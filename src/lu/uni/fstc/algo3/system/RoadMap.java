@@ -13,19 +13,23 @@ public class RoadMap {
      * Here I suppose any List will work. Not a point of performance problems.
      */
     private List<RoadSection> roadSections;
+
     /**
      * Default constructor
      */
     public RoadMap() {
-    	roadSections = new ArrayList<>();
+        roadSections = new ArrayList<>();
     }
+
     /**
      * Get the roadSections with road sections (if any are present).
+     *
      * @return roadSections collection representing this road roadSections.
      */
     public List<RoadSection> getRoadSections() {
         return roadSections;
     }
+
     //TODO: decide if we need this, we don't actually use it
     public boolean addSection(RoadSection section) {
         roadSections.add(section);
@@ -34,6 +38,7 @@ public class RoadMap {
 
     /**
      * Adds all road sections to this road roadSections.
+     *
      * @param allSections collection of road sections to add
      * @return success if true
      */
@@ -41,6 +46,7 @@ public class RoadMap {
         roadSections.addAll(allSections);
         return true;
     }
+
     //TODO: not used, mby delete
     public boolean removeSection(RoadSection section) {
         roadSections.add(section);
@@ -55,7 +61,6 @@ public class RoadMap {
         }
         return null;
     }
-
 
 
 }

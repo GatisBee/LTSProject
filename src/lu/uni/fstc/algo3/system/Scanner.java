@@ -12,18 +12,18 @@ import java.util.*;
  * Created by Gatis on 27/03/2015.
  */
 public class Scanner {
-    /** 
-    * We consider this as a software buffer, assuming that during buffer flush there is another hardware buffer
-    * that can handle scans while this buffer is busy transferring data.
-    */
+    /**
+     * We consider this as a software buffer, assuming that during buffer flush there is another hardware buffer
+     * that can handle scans while this buffer is busy transferring data.
+     */
     private List<ScanEntry> buffer;
-    /** 
-    * Road section on which this scanner is located, can be used to change road sections vehicle counter.
-    */
+    /**
+     * Road section on which this scanner is located, can be used to change road sections vehicle counter.
+     */
     private RoadSection roadSection;
     /**
-    * IDK if this is useful yet. But for now we can leave it here, kind of makes sense.
-    */
+     * IDK if this is useful yet. But for now we can leave it here, kind of makes sense.
+     */
     private Checkpoint checkpoint;
     /**
      * It is responsibility of the user to indicate in which direction this scanner is pointed.
@@ -34,7 +34,7 @@ public class Scanner {
      */
     private UUID scannerID;
     private static final int BUFFER_THRESHOLD = 1000; //flush at this buffer size
-    private static final long TIME_TILL_FLUSH = 600000; //ms
+    private static final long TIME_TILL_FLUSH = 15000; //ms
     private Timer timer; // timer for flush buffer
 
     public Scanner(RoadSection roadSection, Checkpoint checkpoint, UUID scannerID, Direction direction) {
@@ -50,6 +50,7 @@ public class Scanner {
 
     /**
      * Scans cars passing this scanner.
+     *
      * @param plate number plate of the scanned vehicle
      * @return success or failure of the operation.
      */
@@ -74,12 +75,13 @@ public class Scanner {
 
     /**
      * Sends all scan entries from the buffer to centralized system registry and resets the buffer.
+     *
      * @return A boolean value indicating operation success or failure.
      */
     private boolean flushBuffer() {
-    	LTS.getInstance().addScans(buffer);
-    	buffer.removeAll(buffer); // linked lists iterator supports remove
-    	return true;
+        LTS.getInstance().addScans(buffer);
+        buffer.removeAll(buffer); // linked lists iterator supports remove
+        return true;
     }
 
     /**
@@ -89,10 +91,12 @@ public class Scanner {
         @Override
         public void run() {
             /**
-             * Flushes the buffer of this scanner.
+             * Flushes the buffer of this scanner if it is not empty.
              */
-            System.out.println(Thread.currentThread().getName() + " buffer timer expired, flushing scanners buffer...");
-            flushBuffer();
+            if (!buffer.isEmpty()) {
+                System.out.println(Thread.currentThread().getName() + " buffer timer expired, flushing scanners buffer...");
+                flushBuffer();
+            }
         }
     }
 }

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/**This class represents a starting/ending point of a road section. Each checkpoint can have [0,n] scanners facing
+/**
+ * This class represents a starting/ending point of a road section. Each checkpoint can have [0,n] scanners facing
  * each direction (in, out).
  * Created by Gatis on 27/03/2015.
  */
@@ -53,10 +54,16 @@ public class Checkpoint {
     }
 
     public String getName() {
-		return name;
-	}
+        return name;
+    }
 
-	public UUID getId() {
-		return id;
-	}
+    public UUID getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+
 }

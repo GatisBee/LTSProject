@@ -3,6 +3,7 @@ package lu.uni.fstc.algo3.vehicles;
 /**
  * This class represents a number plate of a vehicle in Luxembourg Toll System.
  * Created by Gatis on 27/03/2015.
+ *
  * @see lu.uni.fstc.algo3.vehicles.Vehicle
  */
 public class NumberPlate {
@@ -10,6 +11,7 @@ public class NumberPlate {
 
     /**
      * Default constructor for this number plate. Initializes the number plate from parameters.
+     *
      * @param numberPlate number plate
      */
     public NumberPlate(String numberPlate) {
@@ -19,11 +21,13 @@ public class NumberPlate {
 
     /**
      * Returns this number plate.
+     *
      * @return number plate
      */
-	private String getNumberPlate() {
-		return numberPlate;
-	}
+    private String getNumberPlate() {
+        return numberPlate;
+    }
+
     @Override
     public String toString() {
         return getNumberPlate();

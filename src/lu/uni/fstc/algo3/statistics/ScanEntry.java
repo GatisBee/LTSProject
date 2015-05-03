@@ -28,6 +28,7 @@ public class ScanEntry {
 
     /**
      * Gets the number plate of the vehicle fixed by this scan.
+     *
      * @return number plate of a vehicle.
      */
     public NumberPlate getNumberPlate() {
@@ -36,22 +37,29 @@ public class ScanEntry {
 
     /**
      * Gets time when the scan was made.
+     *
      * @return time of the scan.
      */
     public Instant getTimestamp() {
         return timestamp;
     }
 
-	public UUID getScannerID() {
-		return scannerID;
-	}
+    public UUID getScannerID() {
+        return scannerID;
+    }
 
-	public Checkpoint getCheckpoint() {
-		return checkpoint;
-	}
+    public Checkpoint getCheckpoint() {
+        return checkpoint;
+    }
 
-	public Direction getDirection() {
-		return direction;
-	}
+    public Direction getDirection() {
+        return direction;
+    }
+
+    @Override
+    public String toString() {
+        return numberPlate.toString() + " " + timestamp.toString() + " " + scannerID.toString()
+                + " " + checkpoint.toString() + " " + direction.toString();
+    }
 
 }

@@ -20,28 +20,30 @@ public class VehicleRegister {
     /**
      * Default constructor, initializes private fields.
      */
-	public VehicleRegister() {
-		vehicleRegister = new HashMap<NumberPlate, Vehicle>();
-	}
+    public VehicleRegister() {
+        vehicleRegister = new HashMap<NumberPlate, Vehicle>();
+    }
 
     /**
      * A an entry to the vehicle register.
+     *
      * @param numberPlate number plate of the vehicle
-     * @param vehicle vehicle
+     * @param vehicle     vehicle
      * @return success if true
      */
-	public boolean addEntry(NumberPlate numberPlate, Vehicle vehicle) {
-		vehicleRegister.put(numberPlate, vehicle);
-		return true;
-	}
+    public boolean addEntry(NumberPlate numberPlate, Vehicle vehicle) {
+        vehicleRegister.put(numberPlate, vehicle);
+        return true;
+    }
 
     /**
      * Remove an entry from the vehicle register.
+     *
      * @param numberPlate number plate of the vehicle to remove
      * @return success if true
      */
-	public boolean removeEntry(NumberPlate numberPlate) {
-		vehicleRegister.remove(numberPlate);
-		return true;
-	}
+    public boolean removeEntry(NumberPlate numberPlate) {
+        vehicleRegister.remove(numberPlate);
+        return true;
+    }
 }

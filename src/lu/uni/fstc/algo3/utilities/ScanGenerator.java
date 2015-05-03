@@ -1,7 +1,9 @@
 package lu.uni.fstc.algo3.utilities;
 
 import lu.uni.fstc.algo3.simulation.NumberPlateLoader;
-import lu.uni.fstc.algo3.system.*;
+import lu.uni.fstc.algo3.system.LTS;
+import lu.uni.fstc.algo3.system.RoadMap;
+import lu.uni.fstc.algo3.system.RoadSection;
 import lu.uni.fstc.algo3.system.Scanner;
 import lu.uni.fstc.algo3.vehicles.NumberPlate;
 
@@ -35,8 +37,7 @@ public class ScanGenerator {
             System.exit(-1);
         }
         // create a thread for each road section, that will generate scans for that section
-        if (isGenerateScans())
-        {
+        if (isGenerateScans()) {
             System.out.println("Creating scan generator threads for each road section... ");
             for (RoadSection rs : roadSections) {
                 new Thread(new ScanGeneratorThread(rs)).start();
@@ -101,11 +102,15 @@ public class ScanGenerator {
                     while (!vehiclesInSection.add(plate = numberPlates.get(index))) {
                         index = rnd.nextInt(indexBound);
                     }
-                    System.out.println(Thread.currentThread().getName() + " generating in scan for " + plate);
+                    System.out.println(Thread.currentThread().getName() + " generating INbound scan for " + plate);
                     // make an entry scan of the vehicle
                     roadSection.getCheckpoints()[checkpointIndex].getScannersIn().get(0).scan(plate);
                     // update index, get exit scanner of the next checkpoint
-                    checkpointIndex = checkpointIndex % 1;
+                    if (checkpointIndex == 0) {
+                        checkpointIndex = 1;
+                    } else {
+                        checkpointIndex = 0;
+                    }
                     scanner = roadSection.getCheckpoints()[checkpointIndex].getScannersOut().get(0);
                     // create a timer for exit scan of this vehicle
                     scanTimer.schedule(new ExitScanTimerTask(plate, scanner, vehiclesInSection, this), exitTimerDelay);
@@ -138,10 +143,11 @@ public class ScanGenerator {
          * This constructor takes all the necessary references to perform its intended action as parameters.
          * It scans an exit scan for a vehicle after a specified period of time and removes it from the <code>Set</code>
          * of vehicles currently on the road section. This is done in a thread safe manner by locking the calling object.
-         * @param plate number plate that should be used for exit scan
-         * @param scanner scanner that will perform exit scan. The correct scanner must be provided by the caller (
+         *
+         * @param plate             number plate that should be used for exit scan
+         * @param scanner           scanner that will perform exit scan. The correct scanner must be provided by the caller (
          * @param vehiclesInSection a set of vehicles on road section
-         * @param callingObj a reference to object that is calling this method. It is used to gain lock on this object.
+         * @param callingObj        a reference to object that is calling this method. It is used to gain lock on this object.
          */
         public ExitScanTimerTask(NumberPlate plate, Scanner scanner, Set<NumberPlate> vehiclesInSection, ScanGeneratorThread callingObj) {
             this.plate = plate;
@@ -149,11 +155,12 @@ public class ScanGenerator {
             this.vehiclesInSection = vehiclesInSection;
             this.scanGeneratorThread = callingObj;
         }
+
         @Override
         public void run() {
             // lock scan generator while modifying its field, a clash is highly unlikely but anyway to keep it on the safe side
             synchronized (scanGeneratorThread) {
-                System.out.println(Thread.currentThread().getName() + " generating out scan for " + plate);
+                System.out.println(Thread.currentThread().getName() + " generating OUTbound scan for " + plate);
                 scanner.scan(plate);
                 vehiclesInSection.remove(plate);
             }

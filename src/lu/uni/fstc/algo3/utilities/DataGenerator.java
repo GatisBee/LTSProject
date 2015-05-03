@@ -38,7 +38,8 @@ public class DataGenerator {
             }
         }
     }
-    public void writeNumbersToFile(String path)  {
+
+    public void writeNumbersToFile(String path) {
         // create a file from the specified path
         File file = new File(path);
         if (!file.exists()) {
