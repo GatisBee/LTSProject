@@ -1,6 +1,6 @@
 package lu.uni.fstc.algo3.system;
 
-import lu.uni.fstc.algo3.billing.VehicleRegister;
+import lu.uni.fstc.algo3.billing.VehicleRegistry;
 import lu.uni.fstc.algo3.statistics.ScanEntry;
 
 import java.util.Collection;
@@ -17,7 +17,7 @@ public class LTS {
     private double speedingPenalty;
     private RoadMap roadMap; // will be used when system will be ready
     private Collection<ScanEntry> allScans;
-    private VehicleRegister vehicleRegister;
+    private VehicleRegistry vehicleRegister;
 
 
     private static LTS _instance;
@@ -31,7 +31,7 @@ public class LTS {
          * for big lists it is costly to increase the size of array list (doubling the size and copying all elements)
          */
         allScans = new LinkedList<ScanEntry>();
-        vehicleRegister = new VehicleRegister();
+        vehicleRegister = new VehicleRegistry();
     }
 
     /**
@@ -91,7 +91,7 @@ public class LTS {
      *
      * @return vehicle register
      */
-    public VehicleRegister getVehicleRegister() {
+    public VehicleRegistry getVehicleRegister() {
         return vehicleRegister;
     }
 

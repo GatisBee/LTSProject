@@ -98,4 +98,16 @@ public class Vehicle {
     public void setOwner(VehicleOwner owner) {
         this.owner = owner;
     }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "numberPlate=" + numberPlate +
+                ", maker='" + maker + '\'' +
+                ", model='" + model + '\'' +
+                ", color='" + color + '\'' +
+                ", weight=" + weight +
+                ", owner=" + owner +
+                '}';
+    }
 }

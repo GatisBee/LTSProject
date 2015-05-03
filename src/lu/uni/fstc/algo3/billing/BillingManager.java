@@ -18,12 +18,12 @@ public class BillingManager {
     /**
      * Vehicle register, to get information about scanned vehicle owners.
      */
-    private VehicleRegister vehicleRegister;
+    private VehicleRegistry vehicleRegister;
 
     //TODO: will improve as we go depending on our needs. Meat of this package goes here.
     public BillingManager() {
         lts = LTS.getInstance();
-        vehicleRegister = new VehicleRegister();
+        vehicleRegister = new VehicleRegistry();
     }
 
 }

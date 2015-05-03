@@ -1,11 +1,20 @@
 package lu.uni.fstc.algo3.simulation;
 
-import lu.uni.fstc.algo3.billing.VehicleRegister;
+import lu.uni.fstc.algo3.billing.Address;
+import lu.uni.fstc.algo3.billing.VehicleOwner;
+import lu.uni.fstc.algo3.billing.VehicleRegistry;
 import lu.uni.fstc.algo3.system.*;
 import lu.uni.fstc.algo3.utilities.ParameterGenerator;
+import lu.uni.fstc.algo3.vehicles.NumberPlate;
+import lu.uni.fstc.algo3.vehicles.Vehicle;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Represents LTS environment with its road map (road sections, scanners, etc.). It contains methods for
@@ -46,6 +55,8 @@ public class Environment {
         System.out.println("Adding road sections to map: " + lts.getRoadMap().addAllSections(sections));
         // setup speeding penalty for this lts
         lts.setSpeedingPenalty(20.0d);
+        // populate registry with sample data
+        populateRegistry();
 
         //create vehicle registry and related objects
 
@@ -78,11 +89,49 @@ public class Environment {
     }
 
     //todo: populate the register with vehicle and owner data
-    private void populateRegister() {
-        // get register
-        VehicleRegister register = LTS.getInstance().getVehicleRegister();
+    private void populateRegistry() {
+        // get registry
+        VehicleRegistry registry = LTS.getInstance().getVehicleRegister();
         // create streams to read data from file
-        // create parsers of that data
-        // add entries to the register
+        ArrayList<String> people = new ArrayList<String>(100);
+        ArrayList<String> numberPlates = new ArrayList<String>(100);
+        try {
+            BufferedReader peopleReader = new BufferedReader(new FileReader("people.sample"));
+            BufferedReader plateReader = new BufferedReader(new FileReader("numbers.sample"));
+            // skip the first line
+            peopleReader.readLine();
+            while (peopleReader.ready()) {
+                people.add(peopleReader.readLine());
+            }
+            while (plateReader.ready()) {
+                numberPlates.add(plateReader.readLine());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        if (!people.isEmpty() && !numberPlates.isEmpty()) {
+            for (int i = 0; i < people.size(); i++) {
+                // tokenize each person data line
+                StringTokenizer tokenizer = new StringTokenizer(people.get(i), "|");
+                NumberPlate plate = new NumberPlate(numberPlates.get(i));
+                // parse persons information
+                String name = tokenizer.nextToken();
+                String street = tokenizer.nextToken();
+                String city = tokenizer.nextToken();
+                String zip = tokenizer.nextToken();
+                String country = tokenizer.nextToken();
+                // create address , owner and vehicle
+                Address address = new Address(street, country, city, zip);
+                VehicleOwner owner = new VehicleOwner(name, address);
+                // leave other information null for the time being, as it is not very important
+                Vehicle vehicle = new Vehicle(plate, null, null, null, 0, owner);
+                // add entry to registry
+                registry.addEntry(plate, vehicle);
+            }
+            //todo: remove after debugging
+            registry.printContents();
+        }
     }
 }
