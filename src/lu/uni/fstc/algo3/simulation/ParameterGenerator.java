@@ -1,7 +1,5 @@
 package lu.uni.fstc.algo3.simulation;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -18,14 +16,6 @@ public class ParameterGenerator {
      */
     private int sectionIndex;
     /**
-     * Stores existing ids for checkpoints, to check for new id uniqueness
-     */
-    private List<Long> checkpointIds;
-    /**
-     * Stores existing ids for scanners to check for new id uniqueness
-     */
-    private List<Long> scannerIds;
-    /**
      * Times for cars
      */
     private int[] carTimes;
@@ -38,7 +28,7 @@ public class ParameterGenerator {
      */
     private int[] truckTimes;
     /**
-     * Index used to travers vehicle time arrays, whenever 1 of the arrays is used
+     * Index used to traverse vehicle time arrays, whenever 1 of the arrays is used
      * others should be used with the same index
      */
     private int carIndex;
@@ -48,9 +38,6 @@ public class ParameterGenerator {
     public ParameterGenerator() {
         sectionName = new String("Road Section #");
         sectionIndex = 1;
-
-        checkpointIds = new ArrayList<>();
-        scannerIds = new ArrayList<>();
 
         carTimes = new int[]{10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 19000};
         busTimes = new int[carTimes.length];

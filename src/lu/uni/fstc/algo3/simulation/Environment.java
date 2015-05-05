@@ -93,16 +93,21 @@ public class Environment {
         }
     }
 
-    //todo: populate the register with vehicle and owner data
+    /**
+     * Populate vehicle registry with sample data
+     */
     private void populateRegistry() {
         // get registry
         VehicleRegistry registry = LTS.getInstance().getVehicleRegistry();
         // create streams to read data from file
         ArrayList<String> people = new ArrayList<String>(100);
         ArrayList<String> numberPlates = new ArrayList<String>(100);
+        
+        BufferedReader plateReader = null;
+        BufferedReader peopleReader = null;
         try {
-            BufferedReader peopleReader = new BufferedReader(new FileReader("people.sample"));
-            BufferedReader plateReader = new BufferedReader(new FileReader("numbers.sample"));
+            peopleReader = new BufferedReader(new FileReader("people.sample"));
+            plateReader = new BufferedReader(new FileReader("numbers.sample"));
             // skip the first line
             peopleReader.readLine();
             while (peopleReader.ready()) {
@@ -115,7 +120,26 @@ public class Environment {
             e.printStackTrace();
         } catch (IOException e1) {
             e1.printStackTrace();
+        } finally {
+        	if (peopleReader != null) {
+        		try {
+					peopleReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+        	}
+        	if (plateReader != null) {
+        		try {
+					plateReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+        	}
         }
+        
+        /*
+         * Parse sample data and create necessary objects to populate vehicle registry.
+         */
         if (!people.isEmpty() && !numberPlates.isEmpty()) {
             for (int i = 0; i < people.size(); i++) {
                 // tokenize each person data line

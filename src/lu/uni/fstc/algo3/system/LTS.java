@@ -1,11 +1,10 @@
 package lu.uni.fstc.algo3.system;
 
-import lu.uni.fstc.algo3.billing.VehicleRegistry;
-import lu.uni.fstc.algo3.statistics.ScanEntry;
-
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+
+import lu.uni.fstc.algo3.billing.VehicleRegistry;
+import lu.uni.fstc.algo3.statistics.ScanEntry;
 
 /**
  * This class represents top level of the LTS system. It provides public interfaces for different actors to access

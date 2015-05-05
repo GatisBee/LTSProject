@@ -1,11 +1,14 @@
 package lu.uni.fstc.algo3.system;
 
+import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.UUID;
+
 import lu.uni.fstc.algo3.statistics.ScanEntry;
 import lu.uni.fstc.algo3.vehicles.NumberPlate;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.*;
 
 /**
  * This class represents a number plate scanner device in Luxembourg Toll System. We assume that a single device

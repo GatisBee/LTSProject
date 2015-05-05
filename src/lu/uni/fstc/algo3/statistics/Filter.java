@@ -1,14 +1,13 @@
 package lu.uni.fstc.algo3.statistics;
 
-import lu.uni.fstc.algo3.system.Direction;
-import lu.uni.fstc.algo3.vehicles.NumberPlate;
-
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import lu.uni.fstc.algo3.system.Direction;
+import lu.uni.fstc.algo3.vehicles.NumberPlate;
 
 /**
  * Provides filtering methods for LTS collections.

@@ -1,9 +1,5 @@
 package lu.uni.fstc.algo3.billing;
 
-import lu.uni.fstc.algo3.vehicles.Vehicle;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Owner of a vehicle.
