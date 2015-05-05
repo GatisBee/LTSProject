@@ -1,14 +1,13 @@
 package lu.uni.fstc.algo3.statistics;
 
-import lu.uni.fstc.algo3.system.Direction;
-import lu.uni.fstc.algo3.vehicles.NumberPlate;
-
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import lu.uni.fstc.algo3.system.Direction;
+import lu.uni.fstc.algo3.vehicles.NumberPlate;
 
 /**
  * Provides filtering methods for LTS collections.
@@ -24,12 +23,12 @@ public class Filter {
     public static Collection<ScanEntry> filterByYearMonth(Collection<ScanEntry> collection, YearMonth yearMonth) {
         Collection<ScanEntry> returnCollection = new ArrayList<>();
         for (ScanEntry sc : collection) {
-            if (sc.getDirection() == Direction.IN) {
+//            if (sc.getDirection() == Direction.IN) {
                 YearMonth scanYearMonth = YearMonth.from(sc.getTimestamp());
                 if (yearMonth.compareTo(scanYearMonth) == 0) {
                     returnCollection.add(sc);
                 }
-            }
+//            }
         }
         return returnCollection;
     }
@@ -50,18 +49,19 @@ public class Filter {
     }
 
     /**
-     * Filters given collection of scan entries by number plate and returns a filtered collection.
+     * Filters given collection of scan entries by number plate and direction and returns a filtered collection.
      * @param collection collection to be filtered
      * @param numberPlate number plate by which collection will be filtered
      * @return filtered collection by number plate
      */
-    public static Collection<ScanEntry> filterByNumberPlate(Collection<ScanEntry> collection, NumberPlate numberPlate) {
+    public static Collection<ScanEntry> filterByNumberPlate(Collection<ScanEntry> collection, NumberPlate numberPlate, Direction direction) {
         Collection<ScanEntry> returnCollection = new ArrayList<>();
         for (ScanEntry sc : collection) {
-            if (sc.getNumberPlate().equals(numberPlate)) {
+            if (sc.getDirection() == direction  && sc.getNumberPlate().equals(numberPlate)) {
                 returnCollection.add(sc);
             }
         }
         return returnCollection;
     }
+    
 }

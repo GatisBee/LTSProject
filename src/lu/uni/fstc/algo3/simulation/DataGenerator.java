@@ -1,9 +1,9 @@
 package lu.uni.fstc.algo3.simulation;
 
-import lu.uni.fstc.algo3.system.LTS;
-import lu.uni.fstc.algo3.system.RoadMap;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -14,18 +14,13 @@ import java.util.Set;
  * Created by Gatis on 03/04/2015.
  */
 public class DataGenerator {
-    private LTS lts;
-    private RoadMap map;
     private Random random;
     private static final int MAX_NUMBER = 999998;
     private static final int MIN_NUMBER = 1;
     private static final int SET_SIZE = 100;
     private Set<Integer> numbers;
-    private FileOutputStream fos;
 
     public DataGenerator() {
-        lts = LTS.getInstance();
-        map = lts.getRoadMap();
         random = new Random(System.currentTimeMillis() * MAX_NUMBER);
         numbers = new HashSet<Integer>();
     }
@@ -50,9 +45,10 @@ public class DataGenerator {
                 System.exit(-1);
             }
         }
+        BufferedWriter writer = null;
         try {
             // create a  buffered writer to that file
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer = new BufferedWriter(new FileWriter(file));
             // try to write every number to file
             for (Integer i : numbers) {
                 writer.write(i.toString() + "\n");
@@ -61,6 +57,14 @@ public class DataGenerator {
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-2);
+        } finally {
+        	if (writer != null) {
+        		try {
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+        	}
         }
     }
 
