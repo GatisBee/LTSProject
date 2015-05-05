@@ -1,13 +1,13 @@
 package lu.uni.fstc.algo3.statistics;
 
+import lu.uni.fstc.algo3.system.Direction;
+import lu.uni.fstc.algo3.vehicles.NumberPlate;
+
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
-import lu.uni.fstc.algo3.system.Direction;
-import lu.uni.fstc.algo3.vehicles.NumberPlate;
 
 /**
  * Provides filtering methods for LTS collections.
@@ -16,18 +16,19 @@ import lu.uni.fstc.algo3.vehicles.NumberPlate;
 public class Filter {
     /**
      * Filters given collection by year and month and returns a new filtered collection.
+     *
      * @param collection collection to be filtered
-     * @param yearMonth year month by which the entries should be filtered
+     * @param yearMonth  year month by which the entries should be filtered
      * @return filtered collection by year month
      */
     public static Collection<ScanEntry> filterByYearMonth(Collection<ScanEntry> collection, YearMonth yearMonth) {
         Collection<ScanEntry> returnCollection = new ArrayList<>();
         for (ScanEntry sc : collection) {
 //            if (sc.getDirection() == Direction.IN) {
-                YearMonth scanYearMonth = YearMonth.from(sc.getTimestamp());
-                if (yearMonth.compareTo(scanYearMonth) == 0) {
-                    returnCollection.add(sc);
-                }
+            YearMonth scanYearMonth = YearMonth.from(sc.getTimestamp());
+            if (yearMonth.compareTo(scanYearMonth) == 0) {
+                returnCollection.add(sc);
+            }
 //            }
         }
         return returnCollection;
@@ -36,6 +37,7 @@ public class Filter {
     /**
      * Derives a set of distinct number plates from a collection of scan entries.
      * Main purpose is for billing each driver.
+     *
      * @param collection collection of scan entries
      * @return set of number plates derived from scan entries
      */
@@ -50,18 +52,37 @@ public class Filter {
 
     /**
      * Filters given collection of scan entries by number plate and direction and returns a filtered collection.
-     * @param collection collection to be filtered
+     *
+     * @param collection  collection to be filtered
      * @param numberPlate number plate by which collection will be filtered
+     * @param direction   Direction of the vehicle. Direction.IN - vehicles that enter a road section, Direction.OUT vehicles that exit the road section
      * @return filtered collection by number plate
      */
     public static Collection<ScanEntry> filterByNumberPlate(Collection<ScanEntry> collection, NumberPlate numberPlate, Direction direction) {
         Collection<ScanEntry> returnCollection = new ArrayList<>();
         for (ScanEntry sc : collection) {
-            if (sc.getDirection() == direction  && sc.getNumberPlate().equals(numberPlate)) {
+            if (sc.getDirection() == direction && sc.getNumberPlate().equals(numberPlate)) {
                 returnCollection.add(sc);
             }
         }
         return returnCollection;
     }
-    
+
+    /**
+     * Filters given collection of scan entries by number plate and returns a filtered collection.
+     *
+     * @param collection  collection to be filtered
+     * @param numberPlate number plate by which collection will be filtered
+     * @return filtered collection by number plate
+     */
+    public static Collection<ScanEntry> filterByNumberPlate(Collection<ScanEntry> collection, NumberPlate numberPlate) {
+        Collection<ScanEntry> returnCollection = new ArrayList<>();
+        for (ScanEntry sc : collection) {
+            if (sc.getNumberPlate().equals(numberPlate)) {
+                returnCollection.add(sc);
+            }
+        }
+        return returnCollection;
+    }
+
 }

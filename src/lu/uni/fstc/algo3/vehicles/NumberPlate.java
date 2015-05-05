@@ -18,6 +18,7 @@ public class NumberPlate {
         if (numberPlate == null) throw new NullPointerException();
         this.numberPlate = numberPlate;
     }
+
     /**
      * Returns this number plate.
      *

@@ -61,14 +61,10 @@ public class Environment {
         //create vehicle registry and related objects
 
     }
-    
-    public static void init(int numberOfSections) {
-    	if (_instance == null) {
-    		_instance = new Environment(numberOfSections);
-    	}
-    }
+
     /**
      * Initialize environment.
+     *
      * @param numberOfSections initial number of road sections in this LTS.
      */
     public static void init(int numberOfSections) {
@@ -112,7 +108,7 @@ public class Environment {
         // create streams to read data from file
         ArrayList<String> people = new ArrayList<String>(100);
         ArrayList<String> numberPlates = new ArrayList<String>(100);
-        
+
         BufferedReader plateReader = null;
         BufferedReader peopleReader = null;
         try {
@@ -131,20 +127,20 @@ public class Environment {
         } catch (IOException e1) {
             e1.printStackTrace();
         } finally {
-        	if (peopleReader != null) {
-        		try {
-					peopleReader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-        	}
-        	if (plateReader != null) {
-        		try {
-					plateReader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-        	}
+            if (peopleReader != null) {
+                try {
+                    peopleReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (plateReader != null) {
+                try {
+                    plateReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         
         /*

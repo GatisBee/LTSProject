@@ -48,6 +48,7 @@ public class VehicleRegistry {
 
     /**
      * Gets a vehicle mapped to the specified number plate.
+     *
      * @param numberPlate number plate of the vehicle
      * @return vehicle mapped to the number plate
      */

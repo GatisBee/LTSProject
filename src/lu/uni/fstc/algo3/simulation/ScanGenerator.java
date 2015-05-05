@@ -1,6 +1,5 @@
 package lu.uni.fstc.algo3.simulation;
 
-import lu.uni.fstc.algo3.simulation.NumberPlateLoader;
 import lu.uni.fstc.algo3.system.LTS;
 import lu.uni.fstc.algo3.system.RoadMap;
 import lu.uni.fstc.algo3.system.RoadSection;

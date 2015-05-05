@@ -1,11 +1,11 @@
 package lu.uni.fstc.algo3.statistics;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 import lu.uni.fstc.algo3.system.Checkpoint;
 import lu.uni.fstc.algo3.system.Direction;
 import lu.uni.fstc.algo3.vehicles.NumberPlate;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * Immutable class for representing a scan entry in LTS system.

@@ -58,13 +58,13 @@ public class DataGenerator {
             e.printStackTrace();
             System.exit(-2);
         } finally {
-        	if (writer != null) {
-        		try {
-					writer.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-        	}
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
