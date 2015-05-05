@@ -1,4 +1,4 @@
-package lu.uni.fstc.algo3.utilities;
+package lu.uni.fstc.algo3.simulation;
 
 import lu.uni.fstc.algo3.simulation.NumberPlateLoader;
 import lu.uni.fstc.algo3.system.LTS;
@@ -46,6 +46,7 @@ public class ScanGenerator {
     }
 
     public void stopGenerating() {
+        System.out.println("Stopping scan generation.");
         setGenerateScans(false);
     }
 

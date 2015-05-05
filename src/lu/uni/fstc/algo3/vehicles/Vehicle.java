@@ -20,14 +20,15 @@ public class Vehicle {
     /**
      * Default constructor of this vehicle. All its fields are initialized from the parameters.
      *
-     * @param numberPlate number plate of the vehicle
+     * @param numberPlate number plate of the vehicle. Not null!
      * @param maker       maker of the vehicle
      * @param model       model of the vehicle
      * @param color       color of the vehicle
      * @param weight      weight of the vehicle
-     * @param owner       owner of the vehicle
+     * @param owner       owner of the vehicle. Not null!
      */
     public Vehicle(NumberPlate numberPlate, String maker, String model, String color, int weight, VehicleOwner owner) {
+        if (numberPlate == null || owner == null) throw new NullPointerException();
         this.numberPlate = numberPlate;
         this.maker = maker;
         this.model = model;
@@ -109,5 +110,24 @@ public class Vehicle {
                 ", weight=" + weight +
                 ", owner=" + owner +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Vehicle vehicle = (Vehicle) o;
+
+        if (!numberPlate.equals(vehicle.numberPlate)) return false;
+        return owner.equals(vehicle.owner);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = numberPlate.hashCode();
+        result = 31 * result + owner.hashCode();
+        return result;
     }
 }

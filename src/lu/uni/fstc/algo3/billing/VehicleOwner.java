@@ -39,4 +39,23 @@ public class VehicleOwner {
                 ", address=" + address +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        VehicleOwner that = (VehicleOwner) o;
+
+        if (!name.equals(that.name)) return false;
+        return address.equals(that.address);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + address.hashCode();
+        return result;
+    }
 }

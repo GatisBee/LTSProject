@@ -3,6 +3,7 @@ package lu.uni.fstc.algo3.system;
 import lu.uni.fstc.algo3.billing.VehicleRegistry;
 import lu.uni.fstc.algo3.statistics.ScanEntry;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -17,7 +18,7 @@ public class LTS {
     private double speedingPenalty;
     private RoadMap roadMap; // will be used when system will be ready
     private Collection<ScanEntry> allScans;
-    private VehicleRegistry vehicleRegister;
+    private VehicleRegistry vehicleRegistry;
 
 
     private static LTS _instance;
@@ -31,7 +32,7 @@ public class LTS {
          * for big lists it is costly to increase the size of array list (doubling the size and copying all elements)
          */
         allScans = new LinkedList<ScanEntry>();
-        vehicleRegister = new VehicleRegistry();
+        vehicleRegistry = new VehicleRegistry();
     }
 
     /**
@@ -91,10 +92,24 @@ public class LTS {
      *
      * @return vehicle register
      */
-    public VehicleRegistry getVehicleRegister() {
-        return vehicleRegister;
+    public VehicleRegistry getVehicleRegistry() {
+        return vehicleRegistry;
     }
 
+    /**
+     * Get a copy of scan registry so that the underlying collection doesn't get changed during manipulations
+     * with registry data.
+     * @return copy of LTS scan registry
+     */
+    public synchronized Collection<ScanEntry> getAllScans() {
+        Collection<ScanEntry> returnCollection = new LinkedList<>();
+        returnCollection.addAll(allScans);
+        return returnCollection;
+    }
+
+    /**
+     * Prints contents of the central scan repository. More or less for debugging/demonstration.
+      */
     public void printScans() {
         System.out.println("Printing contents of the central scan repository.");
         for (ScanEntry se : allScans) {

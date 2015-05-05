@@ -5,7 +5,7 @@ import lu.uni.fstc.algo3.vehicles.Vehicle;
 import java.time.LocalDateTime;
 
 /**
- * A bill that will be created for the usage of the road network. Billing policy is not yet defined.
+ * A bill that will be created for the usage of the road network. Billing policy is defined in billing manager.
  * Created by Gatis on 27/03/2015.
  */
 public class Bill {
@@ -33,9 +33,6 @@ public class Bill {
      * Billing address (can be derived from vehicleOwner).
      */
     private Address address;
-    //VERY IMPORTANT! Without a policy we can't bill anyone. There must be a set of rules, when why and how we charge for
-    // using the road. This may also add additional changes to existing classes.
-    //TODO: billing policy, pay each time you use some road section, pay for the day you used a section? several possible policies?
 
     public Bill(double ammountToPay, Vehicle vehicle, VehicleOwner vehicleOwner, Address address) {
         super();
@@ -75,7 +72,15 @@ public class Bill {
         billPayed = payed;
     }
 
-    // here we can design whatever style of bill we would like, but it should contain some information about why
-    // the final bill price is as it is.
-    //TODO: list of scans with prices, dates of scans? depending on the billing policy?
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "date=" + date +
+                ", ammountToPay=" + ammountToPay +
+                ", billPayed=" + billPayed +
+                ", vehicle=" + vehicle +
+                ", vehicleOwner=" + vehicleOwner +
+                ", address=" + address +
+                '}';
+    }
 }

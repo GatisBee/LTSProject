@@ -4,7 +4,6 @@ import lu.uni.fstc.algo3.billing.Address;
 import lu.uni.fstc.algo3.billing.VehicleOwner;
 import lu.uni.fstc.algo3.billing.VehicleRegistry;
 import lu.uni.fstc.algo3.system.*;
-import lu.uni.fstc.algo3.utilities.ParameterGenerator;
 import lu.uni.fstc.algo3.vehicles.NumberPlate;
 import lu.uni.fstc.algo3.vehicles.Vehicle;
 
@@ -91,7 +90,7 @@ public class Environment {
     //todo: populate the register with vehicle and owner data
     private void populateRegistry() {
         // get registry
-        VehicleRegistry registry = LTS.getInstance().getVehicleRegister();
+        VehicleRegistry registry = LTS.getInstance().getVehicleRegistry();
         // create streams to read data from file
         ArrayList<String> people = new ArrayList<String>(100);
         ArrayList<String> numberPlates = new ArrayList<String>(100);
@@ -126,7 +125,7 @@ public class Environment {
                 Address address = new Address(street, country, city, zip);
                 VehicleOwner owner = new VehicleOwner(name, address);
                 // leave other information null for the time being, as it is not very important
-                Vehicle vehicle = new Vehicle(plate, null, null, null, 0, owner);
+                Vehicle vehicle = new Vehicle(plate, "BMW", "M4", "Orange", 1572, owner);
                 // add entry to registry
                 registry.addEntry(plate, vehicle);
             }

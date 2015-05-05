@@ -4,6 +4,7 @@ import lu.uni.fstc.algo3.statistics.ScanEntry;
 import lu.uni.fstc.algo3.vehicles.NumberPlate;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -56,7 +57,7 @@ public class Scanner {
      */
     public synchronized boolean scan(NumberPlate plate) {
         /* Add  the new scan entry to buffer */
-        buffer.add(new ScanEntry(plate, Instant.now(), scannerID, checkpoint, direction));
+        buffer.add(new ScanEntry(plate, LocalDateTime.now(), scannerID, checkpoint, direction));
         System.out.println("Scanner: " + scannerID + " checkpoint: " + checkpoint.getName());
         System.out.println("Number plate: " + plate + "; Direction: " + direction);
         /* Increase or decrease the vehicle on road section counter, depending on the direction of the scanner */

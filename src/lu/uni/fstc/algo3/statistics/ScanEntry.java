@@ -5,6 +5,7 @@ import lu.uni.fstc.algo3.system.Direction;
 import lu.uni.fstc.algo3.vehicles.NumberPlate;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -13,12 +14,12 @@ import java.util.UUID;
  */
 public class ScanEntry {
     private NumberPlate numberPlate;
-    private Instant timestamp;
+    private LocalDateTime timestamp;
     private UUID scannerID;
     private Checkpoint checkpoint;
     private Direction direction;
 
-    public ScanEntry(NumberPlate numberPlate, Instant timestamp, UUID scannerID, Checkpoint checkpoint, Direction direction) {
+    public ScanEntry(NumberPlate numberPlate, LocalDateTime timestamp, UUID scannerID, Checkpoint checkpoint, Direction direction) {
         this.numberPlate = numberPlate;
         this.timestamp = timestamp;
         this.scannerID = scannerID;
@@ -40,7 +41,7 @@ public class ScanEntry {
      *
      * @return time of the scan.
      */
-    public Instant getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 

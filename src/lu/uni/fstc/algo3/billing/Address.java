@@ -43,4 +43,27 @@ public class Address {
                 ", zipCode='" + zipCode + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Address address = (Address) o;
+
+        if (!street.equals(address.street)) return false;
+        if (!country.equals(address.country)) return false;
+        if (!city.equals(address.city)) return false;
+        return zipCode.equals(address.zipCode);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = street.hashCode();
+        result = 31 * result + country.hashCode();
+        result = 31 * result + city.hashCode();
+        result = 31 * result + zipCode.hashCode();
+        return result;
+    }
 }

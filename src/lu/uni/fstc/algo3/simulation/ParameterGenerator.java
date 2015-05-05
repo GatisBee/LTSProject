@@ -1,4 +1,4 @@
-package lu.uni.fstc.algo3.utilities;
+package lu.uni.fstc.algo3.simulation;
 
 import java.util.ArrayList;
 import java.util.List;

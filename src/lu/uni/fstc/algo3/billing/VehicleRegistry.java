@@ -30,7 +30,7 @@ public class VehicleRegistry {
      * @param vehicle     vehicle
      * @return success if true
      */
-    public boolean addEntry(NumberPlate numberPlate, Vehicle vehicle) {
+    public synchronized boolean addEntry(NumberPlate numberPlate, Vehicle vehicle) {
         vehicleRegistry.put(numberPlate, vehicle);
         return true;
     }
@@ -41,9 +41,18 @@ public class VehicleRegistry {
      * @param numberPlate number plate of the vehicle to remove
      * @return success if true
      */
-    public boolean removeEntry(NumberPlate numberPlate) {
+    public synchronized boolean removeEntry(NumberPlate numberPlate) {
         vehicleRegistry.remove(numberPlate);
         return true;
+    }
+
+    /**
+     * Gets a vehicle mapped to the specified number plate.
+     * @param numberPlate number plate of the vehicle
+     * @return vehicle mapped to the number plate
+     */
+    public synchronized Vehicle getVehicle(NumberPlate numberPlate) {
+        return vehicleRegistry.get(numberPlate);
     }
 
     //TODO: print contents for debugging
