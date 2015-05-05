@@ -7,10 +7,9 @@ import lu.uni.fstc.algo3.system.LTS;
 import lu.uni.fstc.algo3.vehicles.NumberPlate;
 import lu.uni.fstc.algo3.vehicles.Vehicle;
 
+import java.time.Duration;
 import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Responsible for bill creation and sending ? Needs utilities for filtering
@@ -62,7 +61,7 @@ public class BillingManager {
             /*
             For each number plate get all scans of that number plate
              */
-            Collection<ScanEntry> scansAllDirections = Filter.filterByNumberPlate(monthlyScans, p);
+            List<ScanEntry> scansAllDirections = (List) Filter.filterByNumberPlate(monthlyScans, p);
             /*
             For billing get only the inbound scans of number plate
              */
@@ -116,7 +115,7 @@ public class BillingManager {
             /*
             For each number plate that was scanned get all scans, in and out
              */
-            Collection<ScanEntry> scansAllDirections = Filter.filterByNumberPlate(thisMonthScans, p);
+            List<ScanEntry> scansAllDirections = (List) Filter.filterByNumberPlate(thisMonthScans, p);
             /*
             For billing, get only the scans that where inbound (once entered road section, driver has to pay for usage)
              */
@@ -143,11 +142,49 @@ public class BillingManager {
         return bills;
     }
 
-    //todo: implement this
-    private double calculatePenalty(Collection<ScanEntry> scans) {
-        // get in and out scans mby order by date
-        // collection should have scans of a single vehicle, mby filter without direction criterion
-        return 0.0d;
+    /**
+     * Calculates penalties for speeding vehicles based on the time needed to travers a road section.
+     * This time is specified during the creation of a road section and can be adjusted.
+     * Speeding penalty is a global value that is applied to every speeding case.
+     *
+     * NOTE that this method does not care about duplicate scans (e.g. 1 vehicle on different road sections at the same).
+     * Nor does it care if a vehicle enters a road section on the last day of month and exits on the first day of next month.
+     * It only calculates penalty for a case where a vehicle enters and exits (exactly in this sequence)
+     * the same road section on different checkpoints of that section
+     * (in the case of a duplicate this sequence could be broken and thus that case would be ignored).
+     * This means that prior to this method one should take care of possible duplicate situation by some policy of eliminating such duplicates.
+     *
+     * I have tested this method by making sure that every vehicle will be speeding. In this case it was working.
+     *
+     * @param scans scans of a single vehicle during some time period (month in our case) for checking of speeding
+     * @return total penalty for speeding (sum of all offences). If no speeding is detected method returns 0.0
+     */
+    public double calculatePenalty(List<ScanEntry> scans) {
+        double penalty = 0.0d;
+            for (int i = 0; i < scans.size() - 1; i++) {
+                if (i == scans.size() - 1) {
+                    return penalty;
+                }
+                ScanEntry current, next;
+                current = scans.get(i);
+                next = scans.get(i + 1);
+                /*
+                Check if the scan and next scan is IN and OUT, form different checkpoints on the same road section.
+                If so, calculate the time spent in this road section and check if it is not less than needed to cross
+                the road section without speeding.
+                 */
+                if (current.getDirection() == Direction.IN && next.getDirection() == Direction.OUT
+                        && !current.getCheckpoint().getName().equals(next.getCheckpoint().getName())
+                        && current.getRoadSection().getName().equals(next.getRoadSection().getName())) {
+                    Duration actualDuration = Duration.between(current.getTimestamp(), next.getTimestamp());
+                    System.out.println("Actual duration=" + actualDuration);
+                    Duration withoutSpeeding = Duration.ofMillis(current.getRoadSection().getTimeForCar());
+                    System.out.println("withoutSpeeding=" + withoutSpeeding);
+                    if (actualDuration.compareTo(withoutSpeeding) < 0) {
+                        penalty += lts.getSpeedingPenalty();
+                    }
+                }
+            }
+        return penalty;
     }
-
 }

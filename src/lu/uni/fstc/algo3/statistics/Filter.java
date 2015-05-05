@@ -84,5 +84,6 @@ public class Filter {
         }
         return returnCollection;
     }
+    //todo: define duplicate scan policy, implement a method for dealing with duplicate scans
 
 }

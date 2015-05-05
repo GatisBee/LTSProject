@@ -56,9 +56,9 @@ public class Scanner {
      */
     public synchronized boolean scan(NumberPlate plate) {
         /* Add  the new scan entry to buffer */
-        buffer.add(new ScanEntry(plate, LocalDateTime.now(), scannerID, checkpoint, direction));
-        System.out.println("Scanner: " + scannerID + " checkpoint: " + checkpoint.getName());
-        System.out.println("Number plate: " + plate + "; Direction: " + direction);
+        buffer.add(new ScanEntry(plate, LocalDateTime.now(), scannerID, checkpoint, roadSection, direction));
+        System.out.println("Scanner: " + scannerID + "; Checkpoint: " + checkpoint.getName() + "; Number plate: " + plate + "; Direction: " + direction);
+        System.out.println();
         /* Increase or decrease the vehicle on road section counter, depending on the direction of the scanner */
         if (direction == Direction.IN) {
             roadSection.vehicleEnters();

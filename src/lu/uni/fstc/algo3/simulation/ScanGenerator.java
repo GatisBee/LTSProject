@@ -75,7 +75,7 @@ public class ScanGenerator {
             this.vehiclesInSection = new HashSet<NumberPlate>();
             rnd = new Random();
             indexBound = numberPlates.size() - 1;
-            exitTimerDelay = roadSection.getTimeForCar();
+            exitTimerDelay = roadSection.getTimeForCar() - 1000;
             scanTimer = new Timer();
         }
         //TODO: seems to be working
