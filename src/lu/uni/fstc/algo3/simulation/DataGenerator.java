@@ -1,4 +1,4 @@
-package lu.uni.fstc.algo3.utilities;
+package lu.uni.fstc.algo3.simulation;
 
 import lu.uni.fstc.algo3.system.LTS;
 import lu.uni.fstc.algo3.system.RoadMap;
@@ -19,7 +19,7 @@ public class DataGenerator {
     private Random random;
     private static final int MAX_NUMBER = 999998;
     private static final int MIN_NUMBER = 1;
-    private static final int SET_SIZE = 1000;
+    private static final int SET_SIZE = 100;
     private Set<Integer> numbers;
     private FileOutputStream fos;
 
@@ -38,7 +38,8 @@ public class DataGenerator {
             }
         }
     }
-    public void writeNumbersToFile(String path)  {
+
+    public void writeNumbersToFile(String path) {
         // create a file from the specified path
         File file = new File(path);
         if (!file.exists()) {

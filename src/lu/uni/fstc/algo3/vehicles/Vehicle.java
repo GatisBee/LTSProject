@@ -11,21 +11,24 @@ import lu.uni.fstc.algo3.billing.VehicleOwner;
  */
 public class Vehicle {
     private NumberPlate numberPlate;
-	private String maker;
+    private String maker;
     private String model;
     private String color;
     private int weight;
     private VehicleOwner owner;
-	/**
-	 * Default constructor of this vehicle. All its fields are initialized from the parameters.
-	 * @param numberPlate number plate of the vehicle
-	 * @param maker maker of the vehicle
-	 * @param model model of the vehicle
-	 * @param color color of the vehicle
-	 * @param weight weight of the vehicle
-	 * @param owner owner of the vehicle
-	 */
-	public Vehicle(NumberPlate numberPlate, String maker, String model, String color, int weight, VehicleOwner owner) {
+
+    /**
+     * Default constructor of this vehicle. All its fields are initialized from the parameters.
+     *
+     * @param numberPlate number plate of the vehicle. Not null!
+     * @param maker       maker of the vehicle
+     * @param model       model of the vehicle
+     * @param color       color of the vehicle
+     * @param weight      weight of the vehicle
+     * @param owner       owner of the vehicle. Not null!
+     */
+    public Vehicle(NumberPlate numberPlate, String maker, String model, String color, int weight, VehicleOwner owner) {
+        if (numberPlate == null || owner == null) throw new NullPointerException();
         this.numberPlate = numberPlate;
         this.maker = maker;
         this.model = model;
@@ -34,52 +37,97 @@ public class Vehicle {
         this.owner = owner;
     }
 
-	/**
-	 * Returns the number plate of this vehicle.
-	 * @return number plate.
-	 */
+    /**
+     * Returns the number plate of this vehicle.
+     *
+     * @return number plate.
+     */
     public NumberPlate getNumberPlate() {
-		return numberPlate;
-	}
+        return numberPlate;
+    }
 
-	/**
-	 * Returns the manufacturer of this vehicle.
-	 * @return manufacturer of the vehicle.
-	 */
-	public String getMaker() {
-		return maker;
-	}
+    /**
+     * Returns the manufacturer of this vehicle.
+     *
+     * @return manufacturer of the vehicle.
+     */
+    public String getMaker() {
+        return maker;
+    }
 
-	/**
-	 * Returns the model of this vehicle.
-	 * @return model of the vehicle.
-	 */
-	public String getModel() {
-		return model;
-	}
+    /**
+     * Returns the model of this vehicle.
+     *
+     * @return model of the vehicle.
+     */
+    public String getModel() {
+        return model;
+    }
 
-	/**
-	 * Returns the color of this vehicle.
-	 * @return color of the vehicle.
-	 */
-	public String getColor() {
-		return color;
-	}
+    /**
+     * Returns the color of this vehicle.
+     *
+     * @return color of the vehicle.
+     */
+    public String getColor() {
+        return color;
+    }
 
-	/**
-	 * Returns the weight of this vehicle.
-	 * @return weight of the vehicle.
-	 */
-	public int getWeight() {
-		return weight;
-	}
+    /**
+     * Returns the weight of this vehicle.
+     *
+     * @return weight of the vehicle.
+     */
+    public int getWeight() {
+        return weight;
+    }
 
-	/**
-	 * Returns the owner of this vehicle.
-	 * @return owner of the vehicle.
-	 */
-	public VehicleOwner getOwner() {
-		return owner;
-	}
+    /**
+     * Returns the owner of this vehicle.
+     *
+     * @return owner of the vehicle.
+     */
+    public VehicleOwner getOwner() {
+        return owner;
+    }
 
+    /**
+     * Set vehicle owner.
+     *
+     * @param owner new owner of the vehicle
+     */
+    public void setOwner(VehicleOwner owner) {
+        this.owner = owner;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "numberPlate=" + numberPlate +
+                ", maker='" + maker + '\'' +
+                ", model='" + model + '\'' +
+                ", color='" + color + '\'' +
+                ", weight=" + weight +
+                ", owner=" + owner +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Vehicle vehicle = (Vehicle) o;
+
+        if (!numberPlate.equals(vehicle.numberPlate)) return false;
+        return owner.equals(vehicle.owner);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = numberPlate.hashCode();
+        result = 31 * result + owner.hashCode();
+        return result;
+    }
 }

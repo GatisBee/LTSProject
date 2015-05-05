@@ -5,6 +5,8 @@ import lu.uni.fstc.algo3.system.Direction;
 import lu.uni.fstc.algo3.vehicles.NumberPlate;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * Immutable class for representing a scan entry in LTS system.
@@ -12,12 +14,12 @@ import java.time.Instant;
  */
 public class ScanEntry {
     private NumberPlate numberPlate;
-    private Instant timestamp;
-    private long scannerID;
+    private LocalDateTime timestamp;
+    private UUID scannerID;
     private Checkpoint checkpoint;
     private Direction direction;
 
-    public ScanEntry(NumberPlate numberPlate, Instant timestamp, long scannerID, Checkpoint checkpoint, Direction direction) {
+    public ScanEntry(NumberPlate numberPlate, LocalDateTime timestamp, UUID scannerID, Checkpoint checkpoint, Direction direction) {
         this.numberPlate = numberPlate;
         this.timestamp = timestamp;
         this.scannerID = scannerID;
@@ -27,6 +29,7 @@ public class ScanEntry {
 
     /**
      * Gets the number plate of the vehicle fixed by this scan.
+     *
      * @return number plate of a vehicle.
      */
     public NumberPlate getNumberPlate() {
@@ -35,22 +38,29 @@ public class ScanEntry {
 
     /**
      * Gets time when the scan was made.
+     *
      * @return time of the scan.
      */
-    public Instant getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-	public long getScannerID() {
-		return scannerID;
-	}
+    public UUID getScannerID() {
+        return scannerID;
+    }
 
-	public Checkpoint getCheckpoint() {
-		return checkpoint;
-	}
+    public Checkpoint getCheckpoint() {
+        return checkpoint;
+    }
 
-	public Direction getDirection() {
-		return direction;
-	}
+    public Direction getDirection() {
+        return direction;
+    }
+
+    @Override
+    public String toString() {
+        return numberPlate.toString() + " " + timestamp.toString() + " " + scannerID.toString()
+                + " " + checkpoint.toString() + " " + direction.toString();
+    }
 
 }
