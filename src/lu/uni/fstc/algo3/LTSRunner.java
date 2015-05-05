@@ -14,7 +14,7 @@ public class LTSRunner {
     public static void main(String[] args) {
         System.out.println("Hello LTS user!");
 //        LTSRunner.generateNumberPlates();
-        Environment environment = new Environment(5);
+        Environment.init(5);
         ScanGenerator scanGenerator = new ScanGenerator();
         Scanner reader = new Scanner(System.in);
 
@@ -34,6 +34,7 @@ public class LTSRunner {
                     // stop simulation
                     scanGenerator.stopGenerating();
                 } else if (line.equals("bill")) {
+                    System.out.println("Creating and printing monthly bills...");
                     for (Bill b : new BillingManager().createMonthlyBills()) {
                         System.out.println(b);
                     }

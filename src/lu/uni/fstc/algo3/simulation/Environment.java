@@ -34,13 +34,14 @@ public class Environment {
      */
     private LTS lts;
     private int numberOfSections;
+    private static Environment _instance = null;
 
     /**
      * Default constructor creates and initializes environment for LTS system.
      *
      * @param numberOfSections number of road sections that should be created.
      */
-    public Environment(int numberOfSections) {
+    private Environment(int numberOfSections) {
         //create LTS
         lts = LTS.getInstance();
         this.numberOfSections = numberOfSections;
@@ -59,6 +60,16 @@ public class Environment {
 
         //create vehicle registry and related objects
 
+    }
+
+    /**
+     * Initialize environment.
+     * @param numberOfSections initial number of road sections in this LTS.
+     */
+    public static void init(int numberOfSections) {
+        if (_instance == null) {
+            _instance = new Environment(numberOfSections);
+        }
     }
 
     /**
