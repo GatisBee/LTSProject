@@ -14,7 +14,7 @@ public class LTSRunner {
     public static void main(String[] args) {
         System.out.println("Hello LTS user!");
 //        LTSRunner.generateNumberPlates();
-        Environment.init(5);
+        Environment.init(10);
         ScanGenerator scanGenerator = new ScanGenerator();
         Scanner reader = new Scanner(System.in);
 

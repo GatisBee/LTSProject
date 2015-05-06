@@ -78,7 +78,6 @@ public class ScanGenerator {
             exitTimerDelay = roadSection.getTimeForCar() - 1000;
             scanTimer = new Timer();
         }
-        //TODO: seems to be working
 
         /**
          * Generates entry and exit scans for the road section for which this generator was created.
@@ -102,7 +101,7 @@ public class ScanGenerator {
                     while (!vehiclesInSection.add(plate = numberPlates.get(index))) {
                         index = rnd.nextInt(indexBound);
                     }
-                    System.out.println(Thread.currentThread().getName() + " generating INbound scan for " + plate);
+//                    System.out.println(Thread.currentThread().getName() + " generating INbound scan for " + plate);
                     // make an entry scan of the vehicle
                     roadSection.getCheckpoints()[checkpointIndex].getScannersIn().get(0).scan(plate);
                     // update index, get exit scanner of the next checkpoint
@@ -132,7 +131,6 @@ public class ScanGenerator {
      * A task for exit scans, it is assigned to each vehicle that enters a road section
      * and should be executed only once.
      */
-    // todo: for now it seems to work
     class ExitScanTimerTask extends TimerTask {
         private NumberPlate plate;
         private Scanner scanner;
@@ -160,7 +158,7 @@ public class ScanGenerator {
         public void run() {
             // lock scan generator while modifying its field, a clash is highly unlikely but anyway to keep it on the safe side
             synchronized (scanGeneratorThread) {
-                System.out.println(Thread.currentThread().getName() + " generating OUTbound scan for " + plate);
+//                System.out.println(Thread.currentThread().getName() + " generating OUTbound scan for " + plate);
                 scanner.scan(plate);
                 vehiclesInSection.remove(plate);
             }

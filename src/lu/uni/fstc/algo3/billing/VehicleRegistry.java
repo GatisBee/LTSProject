@@ -56,7 +56,6 @@ public class VehicleRegistry {
         return vehicleRegistry.get(numberPlate);
     }
 
-    //TODO: print contents for debugging
     public void printContents() {
         for (NumberPlate np : vehicleRegistry.keySet()) {
             System.out.println(vehicleRegistry.get(np));

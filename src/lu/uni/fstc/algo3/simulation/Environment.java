@@ -165,7 +165,9 @@ public class Environment {
                 // add entry to registry
                 registry.addEntry(plate, vehicle);
             }
-            //todo: remove after debugging
+            /*
+            Pints contents of the registry after load for debugging and/or demonstration.
+             */
             registry.printContents();
         }
     }

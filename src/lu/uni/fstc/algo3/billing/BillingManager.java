@@ -9,7 +9,10 @@ import lu.uni.fstc.algo3.vehicles.Vehicle;
 
 import java.time.Duration;
 import java.time.YearMonth;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Responsible for bill creation and sending ? Needs utilities for filtering
@@ -43,15 +46,28 @@ public class BillingManager {
      * so if the logic is correct, it should work.
      *
      * @param yearMonth year and month for which the bills must be created.
-     * @return collection of bills that where created
+     * @return List of bills that where created
      */
-    public Collection<Bill> createMonthlyBills(YearMonth yearMonth) {
-        Collection<Bill> bills = new ArrayList<>(); // collection to store all bills
+    public List<Bill> createMonthlyBills(YearMonth yearMonth) {
+        List<Bill> bills = new ArrayList<>(); // List to store all bills
         /*
         Get scans of the specified month
          */
-        Collection<ScanEntry> monthlyScans = Filter.filterByYearMonth(
+        List<ScanEntry> monthlyScans = Filter.filterByYearMonth(
                 lts.getAllScans(), yearMonth);
+        /*
+        Sort this array by time.
+         */
+        monthlyScans.sort(new Comparator<ScanEntry>() {
+            @Override
+            public int compare(ScanEntry o1, ScanEntry o2) {
+                return o1.compareTo(o2);
+            }
+        });
+        /*
+        Eliminate duplicate scans if any are present
+         */
+        Filter.removeConflicts((ArrayList) monthlyScans);
         /*
         Get unique number plates that where scanned during the specified month
          */
@@ -65,7 +81,7 @@ public class BillingManager {
             /*
             For billing get only the inbound scans of number plate
              */
-            Collection<ScanEntry> scansInbound = Filter.filterByNumberPlate(
+            List<ScanEntry> scansInbound = Filter.filterByNumberPlate(
                     scansAllDirections, p, Direction.IN);// in this case there are redundant checks on number plate
             /*
             Prepare billing parameters and create the bill
@@ -92,20 +108,35 @@ public class BillingManager {
      * Creates bills for all vehicles that where using LTS during the current year-month.
      * This version of method is more or less for illustration purposes that the billing system works.
      *
-     * @return collection of created bills
+     * @return List of created bills
      */
-    public Collection<Bill> createMonthlyBills() {
+    public List<Bill> createMonthlyBills() {
         /*
-        Collection to store all bills.
+        List to store all bills.
          */
-        Collection<Bill> bills = new ArrayList<>();
+        List<Bill> bills = new ArrayList<>();
         // get current year month
         YearMonth yearMonth = YearMonth.now();
         /*
         Filter scans by current month
          */
-        Collection<ScanEntry> thisMonthScans = Filter.filterByYearMonth(
-                lts.getAllScans(), yearMonth);
+        List<ScanEntry> thisMonthScans = Filter.filterByYearMonth(lts.getAllScans(), yearMonth);
+        /*
+        Sort this array by time.
+         */
+        thisMonthScans.sort(new Comparator<ScanEntry>() {
+            @Override
+            public int compare(ScanEntry o1, ScanEntry o2) {
+                return o1.compareTo(o2);
+            }
+        });
+        System.out.println("SORTED LIST BEFORE CONFLICT REMOVAL");
+        Filter.printCollection(thisMonthScans);
+        /*
+        Eliminate duplicate scans if any are present
+         */
+        Filter.removeConflicts((ArrayList) thisMonthScans);
+
         /*
         Get unique number plates that where scanned this month
          */
@@ -119,7 +150,7 @@ public class BillingManager {
             /*
             For billing, get only the scans that where inbound (once entered road section, driver has to pay for usage)
              */
-            Collection<ScanEntry> scansInbound = Filter.filterByNumberPlate(
+            List<ScanEntry> scansInbound = Filter.filterByNumberPlate(
                     scansAllDirections, p, Direction.IN);
             /*
             Prepare bill parameters and create the bill
@@ -146,14 +177,15 @@ public class BillingManager {
      * Calculates penalties for speeding vehicles based on the time needed to travers a road section.
      * This time is specified during the creation of a road section and can be adjusted.
      * Speeding penalty is a global value that is applied to every speeding case.
-     *
+     * <p>
      * NOTE that this method does not care about duplicate scans (e.g. 1 vehicle on different road sections at the same).
      * Nor does it care if a vehicle enters a road section on the last day of month and exits on the first day of next month.
      * It only calculates penalty for a case where a vehicle enters and exits (exactly in this sequence)
-     * the same road section on different checkpoints of that section
-     * (in the case of a duplicate this sequence could be broken and thus that case would be ignored).
+     * the same road section on different checkpoints of that section. In the case of duplicate on another section
+     * the in/out sequence would be broken and those scans would be ignored. However if the duplicate appears on the same
+     * road section e.g. in->in->out->out only the middle sequence would be taken into account which could lead to a faulty speeding penalty.
      * This means that prior to this method one should take care of possible duplicate situation by some policy of eliminating such duplicates.
-     *
+     * <p>
      * I have tested this method by making sure that every vehicle will be speeding. In this case it was working.
      *
      * @param scans scans of a single vehicle during some time period (month in our case) for checking of speeding
@@ -161,30 +193,30 @@ public class BillingManager {
      */
     public double calculatePenalty(List<ScanEntry> scans) {
         double penalty = 0.0d;
-            for (int i = 0; i < scans.size() - 1; i++) {
-                if (i == scans.size() - 1) {
-                    return penalty;
-                }
-                ScanEntry current, next;
-                current = scans.get(i);
-                next = scans.get(i + 1);
+        for (int i = 0; i < scans.size() - 1; i++) {
+            if (i == scans.size() - 1) {
+                return penalty;
+            }
+            ScanEntry current, next;
+            current = scans.get(i);
+            next = scans.get(i + 1);
                 /*
                 Check if the scan and next scan is IN and OUT, form different checkpoints on the same road section.
                 If so, calculate the time spent in this road section and check if it is not less than needed to cross
                 the road section without speeding.
                  */
-                if (current.getDirection() == Direction.IN && next.getDirection() == Direction.OUT
-                        && !current.getCheckpoint().getName().equals(next.getCheckpoint().getName())
-                        && current.getRoadSection().getName().equals(next.getRoadSection().getName())) {
-                    Duration actualDuration = Duration.between(current.getTimestamp(), next.getTimestamp());
-                    System.out.println("Actual duration=" + actualDuration);
-                    Duration withoutSpeeding = Duration.ofMillis(current.getRoadSection().getTimeForCar());
-                    System.out.println("withoutSpeeding=" + withoutSpeeding);
-                    if (actualDuration.compareTo(withoutSpeeding) < 0) {
-                        penalty += lts.getSpeedingPenalty();
-                    }
+            if (current.getDirection() == Direction.IN && next.getDirection() == Direction.OUT
+                    && !current.getCheckpoint().getName().equals(next.getCheckpoint().getName())
+                    && current.getRoadSection().getName().equals(next.getRoadSection().getName())) {
+                Duration actualDuration = Duration.between(current.getTimestamp(), next.getTimestamp());
+//                System.out.println("Actual duration=" + actualDuration);
+                Duration withoutSpeeding = Duration.ofMillis(current.getRoadSection().getTimeForCar());
+//                System.out.println("withoutSpeeding=" + withoutSpeeding);
+                if (actualDuration.compareTo(withoutSpeeding) < 0) {
+                    penalty += lts.getSpeedingPenalty();
                 }
             }
+        }
         return penalty;
     }
 }

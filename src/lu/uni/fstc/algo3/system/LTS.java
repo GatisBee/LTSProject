@@ -3,8 +3,9 @@ package lu.uni.fstc.algo3.system;
 import lu.uni.fstc.algo3.billing.VehicleRegistry;
 import lu.uni.fstc.algo3.statistics.ScanEntry;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This class represents top level of the LTS system. It provides public interfaces for different actors to access
@@ -16,7 +17,7 @@ public class LTS {
 
     private double speedingPenalty;
     private RoadMap roadMap; // will be used when system will be ready
-    private Collection<ScanEntry> allScans;
+    private List<ScanEntry> allScans;
     private VehicleRegistry vehicleRegistry;
 
 
@@ -25,12 +26,7 @@ public class LTS {
 
     private LTS() {
         this.roadMap = new RoadMap();
-
-        /*
-         * I don't use array list, because there is will be sequential access and
-         * for big lists it is costly to increase the size of array list (doubling the size and copying all elements)
-         */
-        allScans = new LinkedList<ScanEntry>();
+        allScans = new ArrayList<>();
         vehicleRegistry = new VehicleRegistry();
     }
 
@@ -96,15 +92,15 @@ public class LTS {
     }
 
     /**
-     * Get a copy of scan registry so that the underlying collection doesn't get changed during manipulations
+     * Get a copy of scan registry so that the underlying list doesn't get changed during manipulations
      * with registry data.
      *
      * @return copy of LTS scan registry
      */
-    public synchronized Collection<ScanEntry> getAllScans() {
-        Collection<ScanEntry> returnCollection = new LinkedList<>();
-        returnCollection.addAll(allScans);
-        return returnCollection;
+    public synchronized List<ScanEntry> getAllScans() {
+        List<ScanEntry> returnList = new ArrayList<>();
+        returnList.addAll(allScans);
+        return returnList;
     }
 
     /**

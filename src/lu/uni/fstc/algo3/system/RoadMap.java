@@ -30,7 +30,6 @@ public class RoadMap {
         return roadSections;
     }
 
-    //TODO: decide if we need this, we don't actually use it
     public boolean addSection(RoadSection section) {
         roadSections.add(section);
         return true;
@@ -47,13 +46,11 @@ public class RoadMap {
         return true;
     }
 
-    //TODO: not used, mby delete
     public boolean removeSection(RoadSection section) {
         roadSections.add(section);
         return true;
     }
 
-    //TODO: not used so far.
     public RoadSection getSection(RoadSection section) {
         int index = roadSections.indexOf(section);
         if (index >= 0) {

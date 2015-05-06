@@ -12,7 +12,7 @@ import java.util.UUID;
  * Immutable class for representing a scan entry in LTS system.
  * Created by Gatis on 27/03/2015.
  */
-public class ScanEntry {
+public class ScanEntry implements Comparable<ScanEntry> {
     private NumberPlate numberPlate;
     private LocalDateTime timestamp;
     private UUID scannerID;
@@ -69,4 +69,41 @@ public class ScanEntry {
                 + " " + checkpoint.toString() + " " + direction.toString();
     }
 
+    /**
+     * Delegates compareTo to LocalDateTime.CompareTo() method, since the comparison for ordering is performed on the timestamps of scan entries.
+     *
+     * @param o scan entry to compare against this scan entry
+     * @return negative value if less, positive if greater
+     */
+    @Override
+    public int compareTo(ScanEntry o) {
+        return timestamp.compareTo(o.getTimestamp());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ScanEntry scanEntry = (ScanEntry) o;
+
+        if (!numberPlate.equals(scanEntry.numberPlate)) return false;
+        if (!timestamp.equals(scanEntry.timestamp)) return false;
+        if (!scannerID.equals(scanEntry.scannerID)) return false;
+        if (!checkpoint.equals(scanEntry.checkpoint)) return false;
+        if (!roadSection.equals(scanEntry.roadSection)) return false;
+        return direction == scanEntry.direction;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = numberPlate.hashCode();
+        result = 31 * result + timestamp.hashCode();
+        result = 31 * result + scannerID.hashCode();
+        result = 31 * result + checkpoint.hashCode();
+        result = 31 * result + roadSection.hashCode();
+        result = 31 * result + direction.hashCode();
+        return result;
+    }
 }
