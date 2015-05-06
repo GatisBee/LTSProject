@@ -107,6 +107,10 @@ public class BillingManager {
     /**
      * Creates bills for all vehicles that where using LTS during the current year-month.
      * This version of method is more or less for illustration purposes that the billing system works.
+     * It gets the scans for current month, sorts them, eliminates overlapping scans and then creates a bill for each number plate.
+     * For each traversal of a road section there is also check if the vehicle was not speeding and a penalty is added to the bill if it was.
+     * The criterion for determining speeding is time needed to traverse the road section without exceeding speed limit.
+     * It is up to the user to indicate an exact time or create a small "buffer" for minor speeding after which a penalty should be applied.
      *
      * @return List of created bills
      */

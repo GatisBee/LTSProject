@@ -16,8 +16,9 @@ public class RoadSection {
     /**
      * The time (measured in millis) needed for a car to drive through this road section without exceeding speed limit(s).
      * Since speed limit on a single road section may vary and due to several reasons there can be fluctuations in
-     * drive-through time. It is mandatory to establish a reasonable buffer for overhead after which a driver could be
-     * charged with additional fee for speeding.
+     * drive-through time. It is suggested to establish a reasonable buffer (decrease in time value) for minor speeding after which a driver could be
+     * charged with additional fee for speeding. For this project we don't use other time values, they are there just to say that it would
+     * be possible to make a distinction between a vehicle type. But that wouldn't change the base functionality much so we don't concentrate on this aspect.
      */
     private int timeForCar;
     /**
