@@ -5,7 +5,6 @@ package lu.uni.fstc.algo3.view;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.border.EmptyBorder;
 
 import lu.uni.fstc.algo3.simulation.ScanGenerator;
 
@@ -35,8 +34,9 @@ public class MainView extends JPanel {
 	}
 
 	private void init() {
-		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
+		this.setBounds(0, 0, 800, 600);
+
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class MainView extends JPanel {
 	private void initGUI() {
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(5, 5, 800, 600);
+		tabbedPane.setBounds(5, 5, 790, 562);
 
 		homeView = new HomeView(scanGenerator);
 		tabbedPane.addTab("Home", homeView);

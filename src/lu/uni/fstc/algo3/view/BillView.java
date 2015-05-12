@@ -3,14 +3,16 @@
  */
 package lu.uni.fstc.algo3.view;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import lu.uni.fstc.algo3.billing.Bill;
@@ -26,8 +28,7 @@ public class BillView extends JPanel {
 	ScanGenerator scanGenerator;
 
 	private JButton generateBillBtn;
-	private JTextPane billText;
-	private JScrollPane scroll;
+	private JTextArea billText;
 
 	/**
 	 * @param scanGenerator
@@ -55,16 +56,24 @@ public class BillView extends JPanel {
 		generateBillBtn.setBounds(10, 10, 200, 25);
 		this.add(generateBillBtn);
 
-		billText = new JTextPane();
-		billText.setFont(new Font("Courier 10 Pitch", Font.PLAIN, 13));
-		billText.setEditable(false);
-		billText.setBounds(10, 50, 400, 400);
+		billText = new JTextArea("The Bill is show here...");
+		billText.setFont(new Font("Serif", Font.ITALIC, 16));
+		billText.setLineWrap(true);
+		billText.setWrapStyleWord(true);
 
-		this.add(billText);
+		JScrollPane areaScrollPane = new JScrollPane(billText);
+		areaScrollPane
+				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		areaScrollPane.setPreferredSize(new Dimension(250, 250));
+		areaScrollPane.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createCompoundBorder(
+						BorderFactory.createTitledBorder("Bill"),
+						BorderFactory.createEmptyBorder(5, 5, 5, 5)),
+				areaScrollPane.getBorder()));
 
-		/*scroll = new JScrollPane();
-		scroll.setViewportView(this.billText);
-		this.add(scroll);*/
+		areaScrollPane.setBounds(10, 50, 750, 450);
+
+		this.add(areaScrollPane);
 
 	}
 

@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import lu.uni.fstc.algo3.LTSRunner;
 import lu.uni.fstc.algo3.simulation.ScanGenerator;
@@ -40,7 +39,6 @@ public class HomeView extends JPanel {
 	}
 
 	private void init() {
-		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
 	}
 
@@ -52,15 +50,15 @@ public class HomeView extends JPanel {
 		this.state = State.stop;
 
 		startBtn = new JButton("Start");
-		startBtn.setBounds(1, 10, 100, 25);
+		startBtn.setBounds(10, 10, 100, 25);
 		this.add(startBtn);
 
 		stopBtn = new JButton("Stop");
-		stopBtn.setBounds(100, 10, 100, 25);
+		stopBtn.setBounds(120, 10, 100, 25);
 		this.add(stopBtn);
 
 		generateNbPlate = new JButton("Generate Number Plate");
-		generateNbPlate.setBounds(400, 10, 200, 25);
+		generateNbPlate.setBounds(560, 10, 220, 25);
 		this.add(generateNbPlate);
 
 	}
@@ -88,7 +86,6 @@ public class HomeView extends JPanel {
 					scanGenerator.stopGenerating();
 					state = State.stop;
 				}
-
 			}
 		});
 
@@ -100,7 +97,6 @@ public class HomeView extends JPanel {
 					LTSRunner.generateNumberPlates();
 					state = State.stop;
 				}
-
 			}
 		});
 
