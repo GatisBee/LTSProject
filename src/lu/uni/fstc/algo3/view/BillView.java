@@ -3,11 +3,13 @@
  */
 package lu.uni.fstc.algo3.view;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
@@ -25,6 +27,7 @@ public class BillView extends JPanel {
 
 	private JButton generateBillBtn;
 	private JTextPane billText;
+	private JScrollPane scroll;
 
 	/**
 	 * @param scanGenerator
@@ -40,6 +43,7 @@ public class BillView extends JPanel {
 
 	private void init() {
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLayout(null);
 	}
 
 	/**
@@ -48,10 +52,19 @@ public class BillView extends JPanel {
 	private void initGUI() {
 
 		generateBillBtn = new JButton("Calculate Bill");
+		generateBillBtn.setBounds(10, 10, 200, 25);
 		this.add(generateBillBtn);
 
 		billText = new JTextPane();
+		billText.setFont(new Font("Courier 10 Pitch", Font.PLAIN, 13));
+		billText.setEditable(false);
+		billText.setBounds(10, 50, 400, 400);
+
 		this.add(billText);
+
+		/*scroll = new JScrollPane();
+		scroll.setViewportView(this.billText);
+		this.add(scroll);*/
 
 	}
 
@@ -62,11 +75,11 @@ public class BillView extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				String value = "reating and printing monthly bills...";
+				String value = "reating and printing monthly bills... \n";
 
 				for (Bill bill : new BillingManager().createMonthlyBills()) {
 
-					value += bill;
+					value += bill + "\n";
 				}
 
 				billText.setText(value);
