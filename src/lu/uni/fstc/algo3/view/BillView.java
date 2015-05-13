@@ -7,16 +7,20 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import lu.uni.fstc.algo3.billing.Bill;
 import lu.uni.fstc.algo3.billing.BillingManager;
+import lu.uni.fstc.algo3.filter.CollectionFilter;
+import lu.uni.fstc.algo3.filter.VehicleOwnerFilterCriteria;
 import lu.uni.fstc.algo3.simulation.ScanGenerator;
 
 /**
@@ -27,6 +31,7 @@ public class BillView extends JPanel {
 
 	ScanGenerator scanGenerator;
 
+	private JTextField ownerField;
 	private JButton generateBillBtn;
 	private JTextArea billText;
 
@@ -52,8 +57,12 @@ public class BillView extends JPanel {
 	 */
 	private void initGUI() {
 
+		ownerField = new JTextField("Owner");
+		ownerField.setBounds(10, 10, 200, 25);
+		this.add(ownerField);
+
 		generateBillBtn = new JButton("Calculate Bill");
-		generateBillBtn.setBounds(10, 10, 200, 25);
+		generateBillBtn.setBounds(220, 10, 200, 25);
 		this.add(generateBillBtn);
 
 		billText = new JTextArea("The Bill is show here...");
@@ -82,12 +91,25 @@ public class BillView extends JPanel {
 		this.generateBillBtn.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
+				String value = "";
 
-				String value = "reating and printing monthly bills... \n";
+				Collection<Bill> bills = new BillingManager()
+						.createMonthlyBills();
 
-				for (Bill bill : new BillingManager().createMonthlyBills()) {
+				if (!ownerField.getText().equals("Owner")
+						&& !ownerField.getText().equals("")) {
 
+					CollectionFilter collectionFilter = new CollectionFilter();
+
+					collectionFilter
+							.addFilterCriteria(new VehicleOwnerFilterCriteria(
+									ownerField.getText()));
+
+					collectionFilter.filter(bills);
+				}
+
+				for (Bill bill : bills) {
 					value += bill + "\n";
 				}
 

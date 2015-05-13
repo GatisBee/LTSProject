@@ -20,6 +20,8 @@ public class MainView extends JPanel {
 
 	private HomeView homeView;
 	private BillView billView;
+	private SearchView searchView;
+	private RoadView roadView;
 
 	/**
 	 * @param scanGenerator
@@ -45,13 +47,19 @@ public class MainView extends JPanel {
 	private void initGUI() {
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(5, 5, 790, 562);
+		tabbedPane.setBounds(5, 5, 788, 550);
 
 		homeView = new HomeView(scanGenerator);
 		tabbedPane.addTab("Home", homeView);
 
 		billView = new BillView(scanGenerator);
 		tabbedPane.addTab("Bill", billView);
+
+		searchView = new SearchView(scanGenerator);
+		tabbedPane.addTab("Search", searchView);
+
+		roadView = new RoadView(scanGenerator);
+		tabbedPane.addTab("Road Section", roadView);
 
 		this.add(tabbedPane);
 
