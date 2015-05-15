@@ -19,8 +19,8 @@ import javax.swing.border.EmptyBorder;
 
 import lu.uni.fstc.algo3.billing.Bill;
 import lu.uni.fstc.algo3.billing.BillingManager;
-import lu.uni.fstc.algo3.filter.CollectionFilter;
 import lu.uni.fstc.algo3.filter.BillVehicleOwnerFilterCriteria;
+import lu.uni.fstc.algo3.filter.CollectionFilter;
 import lu.uni.fstc.algo3.simulation.ScanGenerator;
 
 /**
@@ -29,7 +29,7 @@ import lu.uni.fstc.algo3.simulation.ScanGenerator;
  */
 public class BillView extends JPanel {
 
-	ScanGenerator scanGenerator;
+	private ScanGenerator scanGenerator;
 
 	private JTextField ownerField;
 	private JButton generateBillBtn;
@@ -47,13 +47,16 @@ public class BillView extends JPanel {
 		this.event();
 	}
 
+	/**
+	 * Initialize general parameter of this view
+	 */
 	private void init() {
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(null);
 	}
 
 	/**
-	 * 
+	 * Initialize all the element inside this view
 	 */
 	private void initGUI() {
 

@@ -18,7 +18,7 @@ import lu.uni.fstc.algo3.view.HomeView.State;
  */
 public class SearchView extends JPanel {
 
-	ScanGenerator scanGenerator;
+	private ScanGenerator scanGenerator;
 
 	private State state;
 
@@ -36,12 +36,15 @@ public class SearchView extends JPanel {
 		this.event();
 	}
 
+	/**
+	 * Initialize general parameter of this view
+	 */
 	private void init() {
 		this.setLayout(null);
 	}
 
 	/**
-	 * 
+	 * Initialize all the element inside this view
 	 */
 	private void initGUI() {
 
@@ -51,6 +54,9 @@ public class SearchView extends JPanel {
 
 	}
 
+	/**
+	 * Create events for this view
+	 */
 	private void event() {
 
 		this.searchBtn.addActionListener(new ActionListener() {

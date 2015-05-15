@@ -14,7 +14,7 @@ import lu.uni.fstc.algo3.simulation.ScanGenerator;
  */
 public class MainView extends JPanel {
 
-	ScanGenerator scanGenerator;
+	private ScanGenerator scanGenerator;
 
 	private JTabbedPane tabbedPane;
 
@@ -35,6 +35,9 @@ public class MainView extends JPanel {
 		this.event();
 	}
 
+	/**
+	 * Initialize general parameter of this view
+	 */
 	private void init() {
 		this.setLayout(null);
 		this.setBounds(0, 0, 800, 600);
@@ -42,7 +45,7 @@ public class MainView extends JPanel {
 	}
 
 	/**
-	 * 
+	 * Initialize all the element inside this view
 	 */
 	private void initGUI() {
 
@@ -65,6 +68,9 @@ public class MainView extends JPanel {
 
 	}
 
+	/**
+	 * Create events for this view
+	 */
 	private void event() {
 	}
 

@@ -22,9 +22,12 @@ public class Gui extends JFrame {
 		this.initGUI();
 	}
 
+	/**
+	 * Initialize general parameter of this view
+	 */
 	private void init() {
 		this.setTitle("LuxTollSystem");
-		setBounds(0, 0, 800, 600);
+		this.setBounds(0, 0, 800, 600);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,6 +35,9 @@ public class Gui extends JFrame {
 		this.setLayout(null);
 	}
 
+	/**
+	 * Initialize all the element inside this view
+	 */
 	private void initGUI() {
 		this.mainView = new MainView(scanGenerator);
 		this.setContentPane(this.mainView);

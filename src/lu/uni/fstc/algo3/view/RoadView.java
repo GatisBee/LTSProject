@@ -36,7 +36,7 @@ import lu.uni.fstc.algo3.view.HomeView.State;
  */
 public class RoadView extends JPanel {
 
-	ScanGenerator scanGenerator;
+	private ScanGenerator scanGenerator;
 	private LTS lts;
 
 	private State state;
@@ -61,12 +61,15 @@ public class RoadView extends JPanel {
 		this.event();
 	}
 
+	/**
+	 * Initialize general parameter of this view
+	 */
 	private void init() {
 		this.setLayout(null);
 	}
 
 	/**
-	 * 
+	 * Initialize all the element inside this view
 	 */
 	private void initGUI() {
 
@@ -109,6 +112,9 @@ public class RoadView extends JPanel {
 
 	}
 
+	/**
+	 * Create events for this view
+	 */
 	private void event() {
 
 		this.roadSection.addActionListener(new ActionListener() {
