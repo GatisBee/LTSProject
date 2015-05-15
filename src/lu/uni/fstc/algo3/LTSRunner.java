@@ -2,10 +2,10 @@ package lu.uni.fstc.algo3;
 
 import lu.uni.fstc.algo3.billing.Bill;
 import lu.uni.fstc.algo3.billing.BillingManager;
-import lu.uni.fstc.algo3.simulation.Environment;
-import lu.uni.fstc.algo3.system.LTS;
 import lu.uni.fstc.algo3.simulation.DataGenerator;
+import lu.uni.fstc.algo3.simulation.Environment;
 import lu.uni.fstc.algo3.simulation.ScanGenerator;
+import lu.uni.fstc.algo3.system.LTS;
 
 import java.util.Scanner;
 
@@ -14,7 +14,7 @@ public class LTSRunner {
     public static void main(String[] args) {
         System.out.println("Hello LTS user!");
 //        LTSRunner.generateNumberPlates();
-        Environment.init(5);
+        Environment.init(10);
         ScanGenerator scanGenerator = new ScanGenerator();
         Scanner reader = new Scanner(System.in);
 
@@ -34,10 +34,11 @@ public class LTSRunner {
                     // stop simulation
                     scanGenerator.stopGenerating();
                 } else if (line.equals("bill")) {
+                    System.out.println("Creating and printing monthly bills...");
                     for (Bill b : new BillingManager().createMonthlyBills()) {
                         System.out.println(b);
                     }
-                }else if (line.equals("exit") || line.equals("quit")) {
+                } else if (line.equals("exit") || line.equals("quit")) {
                     System.out.println("Exiting LTS...");
                     // cleanup and exit
                     scanGenerator.stopGenerating();

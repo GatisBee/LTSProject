@@ -33,7 +33,7 @@ public class Bill {
      * Billing address (can be derived from vehicleOwner).
      */
     private Address address;
-    
+
     private double speedingPenalty;
 
     public Bill(double ammountToPay, Vehicle vehicle, VehicleOwner vehicleOwner, Address address) {
@@ -79,19 +79,17 @@ public class Bill {
         return "Bill{" +
                 "date=" + date +
                 ", ammountToPay=" + ammountToPay +
+                ", speedingPenalty=" + speedingPenalty +
                 ", billPayed=" + billPayed +
                 ", vehicle=" + vehicle +
                 ", vehicleOwner=" + vehicleOwner +
                 ", address=" + address +
-                ", speedingPenalty=" + speedingPenalty +
                 '}';
     }
 
-	public double getSpeedingPenalty() {
-		return speedingPenalty;
-	}
-
-	public void setSpeedingPenalty(double speedingPenalty) {
-		this.speedingPenalty = speedingPenalty;
-	}
+    public void setSpeedingPenalty(double speedingPenalty) {
+        this.speedingPenalty = speedingPenalty;
+        // update the total amount to pay with the new speeding penalty
+        this.ammountToPay += this.speedingPenalty;
+    }
 }

@@ -39,7 +39,7 @@ public class ParameterGenerator {
         sectionName = new String("Road Section #");
         sectionIndex = 1;
 
-        carTimes = new int[]{10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 19000};
+        carTimes = new int[]{10000, 10500, 11000, 10500, 12000, 10500, 13000, 10500, 14000, 10500};
         busTimes = new int[carTimes.length];
         for (int i = 0; i < carTimes.length; i++) {
             busTimes[i] = (int) (carTimes[i] * 0.9);
