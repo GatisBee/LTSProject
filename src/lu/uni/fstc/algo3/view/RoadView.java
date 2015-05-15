@@ -155,9 +155,13 @@ public class RoadView extends JPanel {
 				}
 
 				for (ScanEntry scanEntry : scanEntries) {
-					value += scanEntry.getTimestamp().format(formatter) + " - "
+					value += scanEntry.getTimestamp().format(formatter)
+							+ " - "
 							+ scanEntry.getNumberPlate().getNumberPlate()
-							+ "\n";
+							+ " - "
+							+ lts.getVehicleRegistry()
+									.getVehicle(scanEntry.getNumberPlate())
+									.getMaker() + "\n";
 				}
 
 				roadInfo.setText(value);
