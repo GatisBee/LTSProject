@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,12 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
+import lu.uni.fstc.algo3.filter.CollectionFilter;
+import lu.uni.fstc.algo3.filter.NumberPlateFilterCriteria;
 import lu.uni.fstc.algo3.simulation.ScanGenerator;
+import lu.uni.fstc.algo3.statistics.ScanEntry;
 import lu.uni.fstc.algo3.system.LTS;
 import lu.uni.fstc.algo3.system.RoadSection;
 import lu.uni.fstc.algo3.view.HomeView.State;
@@ -33,9 +38,12 @@ public class RoadView extends JPanel {
 
 	private State state;
 
-	private JButton searchBtn;
 	private JComboBox<String> roadSection;
+	private JTextField carChoice;
+	private JButton searchBtn;
 	private JTextArea roadInfo;
+
+	private RoadSection currentRoadSection;
 
 	/**
 	 * @param scanGenerator
@@ -69,8 +77,12 @@ public class RoadView extends JPanel {
 		roadSection.setBounds(10, 10, 200, 25);
 		this.add(roadSection);
 
+		carChoice = new JTextField("Car Number Plate");
+		carChoice.setBounds(220, 10, 200, 25);
+		this.add(carChoice);
+
 		searchBtn = new JButton("Search");
-		searchBtn.setBounds(210, 10, 100, 25);
+		searchBtn.setBounds(430, 10, 100, 25);
 		this.add(searchBtn);
 
 		roadInfo = new JTextArea("Road Section info...");
@@ -108,6 +120,48 @@ public class RoadView extends JPanel {
 						+ road.getVehiclesOnSection() + " vehicles.";
 
 				roadInfo.setText(value);
+				currentRoadSection = road;
+			}
+		});
+
+		this.searchBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DateTimeFormatter formatter = DateTimeFormatter
+						.ofPattern(" dd/MM/yyyy HH:mm");
+
+				String value = "";
+
+				String name = (String) roadSection.getSelectedItem();
+				RoadSection road = lts.getRoadMap().findRoadSection(name);
+
+				LTS lts = LTS.getInstance();
+
+				List<ScanEntry> scanEntries = lts.getAllScans();
+
+				if (!carChoice.getText().equals("Car Number Plate")
+						&& !carChoice.getText().equals("")) {
+
+					CollectionFilter collectionFilter = new CollectionFilter();
+
+					collectionFilter
+							.addFilterCriteria(new NumberPlateFilterCriteria(
+									carChoice.getText()));
+
+					System.out.println(carChoice.getText());
+
+					collectionFilter.filter(scanEntries);
+				}
+
+				for (ScanEntry scanEntry : scanEntries) {
+					value += scanEntry.getTimestamp().format(formatter) + " - "
+							+ scanEntry.getNumberPlate().getNumberPlate()
+							+ "\n";
+				}
+
+				roadInfo.setText(value);
+
 			}
 		});
 
