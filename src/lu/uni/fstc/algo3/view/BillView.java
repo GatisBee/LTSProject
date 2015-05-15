@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 import lu.uni.fstc.algo3.billing.Bill;
 import lu.uni.fstc.algo3.billing.BillingManager;
 import lu.uni.fstc.algo3.filter.CollectionFilter;
-import lu.uni.fstc.algo3.filter.VehicleOwnerFilterCriteria;
+import lu.uni.fstc.algo3.filter.BillVehicleOwnerFilterCriteria;
 import lu.uni.fstc.algo3.simulation.ScanGenerator;
 
 /**
@@ -65,7 +65,7 @@ public class BillView extends JPanel {
 		generateBillBtn.setBounds(220, 10, 200, 25);
 		this.add(generateBillBtn);
 
-		billText = new JTextArea("The Bill is show here...");
+		billText = new JTextArea("The Bills are diplay here...");
 		billText.setFont(new Font("Serif", Font.ITALIC, 16));
 		billText.setLineWrap(true);
 		billText.setWrapStyleWord(true);
@@ -103,7 +103,7 @@ public class BillView extends JPanel {
 					CollectionFilter collectionFilter = new CollectionFilter();
 
 					collectionFilter
-							.addFilterCriteria(new VehicleOwnerFilterCriteria(
+							.addFilterCriteria(new BillVehicleOwnerFilterCriteria(
 									ownerField.getText()));
 
 					collectionFilter.filter(bills);

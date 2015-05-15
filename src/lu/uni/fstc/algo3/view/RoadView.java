@@ -20,9 +20,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import lu.uni.fstc.algo3.filter.CollectionFilter;
-import lu.uni.fstc.algo3.filter.NumberPlateFilterCriteria;
+import lu.uni.fstc.algo3.filter.ScanEntryDirectionFilterCriteria;
+import lu.uni.fstc.algo3.filter.ScaneEntryNumberPlateFilterCriteria;
+import lu.uni.fstc.algo3.filter.ScaneEntryRoadSectionFilterCriteria;
 import lu.uni.fstc.algo3.simulation.ScanGenerator;
 import lu.uni.fstc.algo3.statistics.ScanEntry;
+import lu.uni.fstc.algo3.system.Direction;
 import lu.uni.fstc.algo3.system.LTS;
 import lu.uni.fstc.algo3.system.RoadSection;
 import lu.uni.fstc.algo3.view.HomeView.State;
@@ -116,8 +119,9 @@ public class RoadView extends JPanel {
 				String name = (String) cb.getSelectedItem();
 				RoadSection road = lts.getRoadMap().findRoadSection(name);
 
-				String value = "The " + name + " have "
-						+ road.getVehiclesOnSection() + " vehicles.";
+				String value = "There are currently "
+						+ road.getVehiclesOnSection() + " vehicles on  "
+						+ road.getName() + ".";
 
 				roadInfo.setText(value);
 				currentRoadSection = road;
@@ -140,20 +144,30 @@ public class RoadView extends JPanel {
 
 				List<ScanEntry> scanEntries = lts.getAllScans();
 
+				// Add filter for direction and road section
+				CollectionFilter collectionFilter = new CollectionFilter();
+				collectionFilter
+						.addFilterCriteria(new ScaneEntryRoadSectionFilterCriteria(
+								road));
+				collectionFilter
+						.addFilterCriteria(new ScanEntryDirectionFilterCriteria(
+								Direction.IN));
+
+				// If the field content a number plate we add an other filter
+				// for found this number plate.
 				if (!carChoice.getText().equals("Car Number Plate")
 						&& !carChoice.getText().equals("")) {
 
-					CollectionFilter collectionFilter = new CollectionFilter();
+					collectionFilter.filter(scanEntries);
 
 					collectionFilter
-							.addFilterCriteria(new NumberPlateFilterCriteria(
+							.addFilterCriteria(new ScaneEntryNumberPlateFilterCriteria(
 									carChoice.getText()));
-
-					System.out.println(carChoice.getText());
-
-					collectionFilter.filter(scanEntries);
 				}
 
+				collectionFilter.filter(scanEntries);
+
+				// Display the result in the text area
 				for (ScanEntry scanEntry : scanEntries) {
 					value += scanEntry.getTimestamp().format(formatter)
 							+ " - "
@@ -161,7 +175,8 @@ public class RoadView extends JPanel {
 							+ " - "
 							+ lts.getVehicleRegistry()
 									.getVehicle(scanEntry.getNumberPlate())
-									.getMaker() + "\n";
+									.getMaker() + " - "
+							+ scanEntry.getRoadSection().getName() + "\n";
 				}
 
 				roadInfo.setText(value);

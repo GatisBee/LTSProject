@@ -9,11 +9,11 @@ import lu.uni.fstc.algo3.statistics.ScanEntry;
  * @author philippe
  *
  */
-public class NumberPlateFilterCriteria implements FilterCriteria {
+public class ScaneEntryNumberPlateFilterCriteria implements FilterCriteria {
 
 	private String numberPlate;
 
-	public NumberPlateFilterCriteria(String numberPlate) {
+	public ScaneEntryNumberPlateFilterCriteria(String numberPlate) {
 		this.numberPlate = numberPlate;
 	}
 

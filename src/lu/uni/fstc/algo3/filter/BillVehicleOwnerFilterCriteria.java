@@ -2,11 +2,11 @@ package lu.uni.fstc.algo3.filter;
 
 import lu.uni.fstc.algo3.billing.Bill;
 
-public class VehicleOwnerFilterCriteria implements FilterCriteria {
+public class BillVehicleOwnerFilterCriteria implements FilterCriteria {
 
 	private String name;
 
-	public VehicleOwnerFilterCriteria(String name) {
+	public BillVehicleOwnerFilterCriteria(String name) {
 		this.name = name;
 	}
 
