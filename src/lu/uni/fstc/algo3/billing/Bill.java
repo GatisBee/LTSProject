@@ -1,6 +1,7 @@
 package lu.uni.fstc.algo3.billing;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import lu.uni.fstc.algo3.vehicles.Vehicle;
 
@@ -78,8 +79,11 @@ public class Bill {
 	@Override
 	public String toString() {
 
-		return date + " " + vehicleOwner.getName() + " " + ammountToPay + " "
-				+ speedingPenalty;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+		return date.format(formatter) + " - " + vehicleOwner.getName()
+				+ " - Ammount To Pay = " + ammountToPay
+				+ " -  Speeding Penality = " + speedingPenalty;
 
 	}
 
