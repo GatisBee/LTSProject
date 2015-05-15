@@ -58,8 +58,8 @@ public class MainView extends JPanel {
 		billView = new BillView(scanGenerator);
 		tabbedPane.addTab("Bill", billView);
 
-		searchView = new SearchView(scanGenerator);
-		tabbedPane.addTab("Search", searchView);
+		// searchView = new SearchView(scanGenerator);
+		// tabbedPane.addTab("Search", searchView);
 
 		roadView = new RoadView(scanGenerator);
 		tabbedPane.addTab("Road Section", roadView);
