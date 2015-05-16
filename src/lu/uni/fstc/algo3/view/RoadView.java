@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 
 import lu.uni.fstc.algo3.filter.CollectionFilter;
 import lu.uni.fstc.algo3.filter.ScanEntryDirectionFilterCriteria;
+import lu.uni.fstc.algo3.filter.ScaneEntryMakerFilterCriteria;
 import lu.uni.fstc.algo3.filter.ScaneEntryNumberPlateFilterCriteria;
 import lu.uni.fstc.algo3.filter.ScaneEntryRoadSectionFilterCriteria;
 import lu.uni.fstc.algo3.simulation.ScanGenerator;
@@ -43,6 +44,7 @@ public class RoadView extends JPanel {
 
 	private JComboBox<String> roadSection;
 	private JTextField carChoice;
+	private JTextField makerChoice;
 	private JButton searchBtn;
 	private JTextArea roadInfo;
 
@@ -87,8 +89,12 @@ public class RoadView extends JPanel {
 		carChoice.setBounds(220, 10, 200, 25);
 		this.add(carChoice);
 
+		makerChoice = new JTextField("Maker");
+		makerChoice.setBounds(430, 10, 200, 25);
+		this.add(makerChoice);
+
 		searchBtn = new JButton("Search");
-		searchBtn.setBounds(430, 10, 100, 25);
+		searchBtn.setBounds(640, 10, 100, 25);
 		this.add(searchBtn);
 
 		roadInfo = new JTextArea("Road Section info...");
@@ -169,6 +175,16 @@ public class RoadView extends JPanel {
 					collectionFilter
 							.addFilterCriteria(new ScaneEntryNumberPlateFilterCriteria(
 									carChoice.getText()));
+				}
+
+				if (!makerChoice.getText().equals("Maker")
+						&& !makerChoice.getText().equals("")) {
+
+					collectionFilter.filter(scanEntries);
+
+					collectionFilter
+							.addFilterCriteria(new ScaneEntryMakerFilterCriteria(
+									makerChoice.getText()));
 				}
 
 				collectionFilter.filter(scanEntries);

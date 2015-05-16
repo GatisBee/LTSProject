@@ -31,7 +31,10 @@ public class Environment {
 
 	private static String[] MAKERS = { "BMW", "Audi", "Ferrari", "Fiat",
 			"Renaut", "Toyota", "Opel", "Mercedes", "Hunday", "Lotus",
-			"Citroen", "Tesla" };
+			"Citroen", "Tesla", "VW", "Ford" };
+
+	private static String[] COLOR = { "Orange", "Blue", "Red", "Green",
+			"Yello", "Black", "Withe", "Grey" };
 	/**
 	 * List of all road sections
 	 */
@@ -185,10 +188,9 @@ public class Environment {
 				VehicleOwner owner = new VehicleOwner(name, address);
 				// leave other information null for the time being, as it is not
 				// very important
-				int randomMaker = random.nextInt(MAKERS.length);
-				String maker = MAKERS[randomMaker];
-				Vehicle vehicle = new Vehicle(plate, maker, "M4", "Orange",
-						1572, owner);
+
+				Vehicle vehicle = new Vehicle(plate, this.choiceRandom(MAKERS),
+						"M4", this.choiceRandom(COLOR), 1572, owner);
 				// add entry to registry
 				registry.addEntry(plate, vehicle);
 			}
@@ -197,5 +199,17 @@ public class Environment {
 			 */
 			registry.printContents();
 		}
+	}
+
+	/**
+	 * Choice a random value in an array
+	 * 
+	 * @param array
+	 * @return
+	 */
+	private String choiceRandom(String[] array) {
+		int randomMaker = random.nextInt(array.length);
+		return array[randomMaker];
+
 	}
 }
